@@ -21,9 +21,14 @@ Supported Crops:
 - Pumpkin (Plant Only)
 - Melon (Plant Only)
 - Sapling
+- Kelp
+- Bamboo
 - Mushroom (Small ones Only)
 - All kind of grass
 - All kind of flowers
+
+### Download
+[CurseForge](https://www.curseforge.com/minecraft/mc-mods/autoharvest)
 
 ### License
 This mod is publish under GPLv3.
