@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "autoharvest",
+  "version": "${version}",
+
+  "name": "autoharvest",
+  "description": "Automatically harvest and re-plant crops",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/flier268/AutoHarvestMod"
+  },
+
+  "license": "GPL-3.0",
+  "icon": "assets/autoharvest/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.flier268.autoharvest.AutoHarvest"
+    ]
+  },
+  "mixins": [
+    "modid.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

@@ -1,4 +1,4 @@
-### Automatic Harvest Mod for Minecraft 1.11.2
+### Automatic Harvest Mod for Minecraft 1.14.4
 This mod give you the easiest way to harvest crops.
 You just need to walk around, and all the mature crops will be harvested and re-planted.
 
@@ -10,6 +10,7 @@ Available modes are:
 - Plant: Plant the seed in your hand
 - Seed: Break the grass and flowers around you
 - Feed: Feed the animals around you with the item in your hand. Also shear the sheep if you take the scissors
+- Farmer: Harvest the corp and re-plant them
 
 Supported Crops:
 
