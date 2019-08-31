@@ -20,7 +20,8 @@ import java.util.Set;
 public class CropManager {
     public static final Block REED_BLOCK = Blocks.SUGAR_CANE;
     public static final Block NETHER_WART = Blocks.NETHER_WART;
-
+    public static final Block BAMBOO = Blocks.BAMBOO;
+    public static final Block KELP = Blocks.KELP;
 
     public static final Set<Block> WEED_BLOCKS = new HashSet<Block>() {{
         add(Blocks.OAK_SAPLING);
@@ -96,10 +97,12 @@ public class CropManager {
             if (b instanceof NetherWartBlock)
                 return stat.get(NetherWartBlock.AGE) >= 3;
             return false;
-        } else if (b == REED_BLOCK) {
+        } else if (b == REED_BLOCK || b== BAMBOO || b== KELP) {
             Block blockDown = w.getBlockState(pos.down()).getBlock();
             Block blockDown2 = w.getBlockState(pos.down(2)).getBlock();
-            return blockDown == REED_BLOCK && blockDown2 != REED_BLOCK;
+            return (blockDown == REED_BLOCK && blockDown2 != REED_BLOCK) ||
+                    (blockDown == BAMBOO && blockDown2 != BAMBOO) ||
+                    (blockDown == KELP && blockDown2 != KELP);
         }
         return false;
     }
