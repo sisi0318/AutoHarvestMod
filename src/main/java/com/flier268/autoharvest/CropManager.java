@@ -77,12 +77,19 @@ public class CropManager {
 
         FEED_MAP.put(Items.ROTTEN_FLESH, WolfEntity.class);
 
-        FEED_MAP.put(Items.COD, OcelotEntity.class);//Items.COD, Items.SALMON, Items.TROPICAL_FISH, Items.PUFFERFISH
-
         FEED_MAP.put(Items.DANDELION, RabbitEntity.class); // Dandelion
         FEED_MAP.put(Items.CARROT, RabbitEntity.class);
 
         FEED_MAP.put(Items.WHEAT_SEEDS, ParrotEntity.class);
+
+        //1.13
+        FEED_MAP.put(Items.SEAGRASS, TurtleEntity.class);
+
+        //1.14
+        FEED_MAP.put(Items.KELP, PandaEntity.class);
+        FEED_MAP.put(Items.SWEET_BERRIES, FoxEntity.class);
+        FEED_MAP.put(Items.COD, CatEntity.class);
+        FEED_MAP.put(Items.SALMON, CatEntity.class);
     }
 
     public static boolean isWeedBlock(World w, BlockPos pos) {
