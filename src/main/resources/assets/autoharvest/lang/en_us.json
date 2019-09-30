@@ -1,12 +1,14 @@
 {
+  "key.autoharvest.switch":"AutoHarvest Switch",
   "key.autoharvest.modechange":"Switch AutoHarvest Mode",
+  "notify.turn.on": "AutoHarvest turned on",
+  "notify.turn.off": "AutoHarvest turned off",
   "notify.switch_to.harvest":"Switch to: Harvest",
   "notify.switch_to.plant":"Switch to: Plant",
   "notify.switch_to.farmer":"Switch to: Farmer",
   "notify.switch_to.seed":"Switch to: Seed",
   "notify.switch_to.feed":"Switch to: Feed",
   "notify.switch_to.fishing":"Switch to: Fishing",
-  "notify.switch_to.off":"AutoHarvest turned off",
   "notify.lack_of_seed":"You need more seeds",
   "notify.prefix":"[AutoHarvest]",
   "notify.tick_error":"Internal Error Happened"

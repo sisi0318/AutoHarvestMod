@@ -104,7 +104,7 @@ public class CropManager {
             if (b instanceof NetherWartBlock)
                 return stat.get(NetherWartBlock.AGE) >= 3;
             return false;
-        } else if (b == REED_BLOCK || b== BAMBOO || b== KELP) {
+        } else if (b == REED_BLOCK || b == BAMBOO || b == KELP) {
             Block blockDown = w.getBlockState(pos.down()).getBlock();
             Block blockDown2 = w.getBlockState(pos.down(2)).getBlock();
             return (blockDown == REED_BLOCK && blockDown2 != REED_BLOCK) ||

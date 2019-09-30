@@ -6,6 +6,7 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.LiteralText;
 public class AutoHarvest implements ModInitializer {
     public static String MOD_NAME = "autoharvest";
+    public boolean Switch = false;
 
     @Override
     public void onInitialize() {
@@ -22,8 +23,7 @@ public class AutoHarvest implements ModInitializer {
         Farmer,  //Harvest then re-plant
         SEED,   // Harvest seeds & flowers
         FEED,   // Feed animals
-        FISHING,// Fishing
-        OFF;    // Turn off mod
+        FISHING;// Fishing
         private static HarvestMode[] vals = values();
 
         public AutoHarvest.HarvestMode next() {
@@ -33,17 +33,11 @@ public class AutoHarvest implements ModInitializer {
 
     //@Mod.Instance
     public static AutoHarvest instance;
-    public HarvestMode mode = HarvestMode.OFF;
+    public HarvestMode mode = HarvestMode.FISHING;
     public TickListener listener = null;
     public KeyPressListener KeyListener = null;
 
     TaskManager taskManager = new TaskManager();
-
-    private void setEnabled() {
-        if (listener == null) {
-            listener = new TickListener(mode, 3, MinecraftClient.getInstance().player);
-        }
-    }
 
     private void setDisabled() {
         if (listener != null) {
@@ -54,18 +48,10 @@ public class AutoHarvest implements ModInitializer {
     public HarvestMode toNextMode() {
         //setDisabled();
         mode = mode.next();
-        if (mode != HarvestMode.OFF) {
-            setEnabled();
+        if (listener == null) {
+            listener = new TickListener(3, MinecraftClient.getInstance().player);
         }
         return mode;
-    }
-
-    public void toNextMode(HarvestMode nextMode) {
-        setDisabled();
-        mode = nextMode;
-        if (mode != HarvestMode.OFF) {
-            setEnabled();
-        }
     }
 
     public static void msg(String key, Object... obj) {

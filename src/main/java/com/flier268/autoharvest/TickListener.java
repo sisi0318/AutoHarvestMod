@@ -30,12 +30,13 @@ public class TickListener {
     private long fishBitesAt = 0L;
     private ItemStack lastUsedItem = null;
 
-    public TickListener(AutoHarvest.HarvestMode mode, int range, ClientPlayerEntity player) {
+    public TickListener(int range, ClientPlayerEntity player) {
         this.range = range;
         this.p = player;
         ClientTickCallback.EVENT.register(e ->
         {
-            onTick(e.player);
+            if (AutoHarvest.instance.Switch)
+                onTick(e.player);
         });
     }
 
@@ -43,8 +44,8 @@ public class TickListener {
         try {
             if (player != p) {
                 this.p = player;
-                String modeName = AutoHarvest.HarvestMode.OFF.toString().toLowerCase();
-                AutoHarvest.msg("notify.switch_to." + modeName);
+                AutoHarvest.instance.Switch = false;
+                AutoHarvest.msg("notify.turn.off");
                 return;
             }
             if (AutoHarvest.instance.taskManager.Count() > 0) {
@@ -74,9 +75,9 @@ public class TickListener {
             }
         } catch (Exception ex) {
             AutoHarvest.msg("notify.tick_error");
-            AutoHarvest.msg("notify.switch_to.off");
+            AutoHarvest.msg("notify.turn.off");
             ex.printStackTrace();
-            AutoHarvest.instance.toNextMode(AutoHarvest.HarvestMode.OFF);
+            AutoHarvest.instance.Switch = false;
         }
     }
 
@@ -150,8 +151,8 @@ public class TickListener {
             }
             if (supplmentIdx < 0) {
                 AutoHarvest.msg("notify.lack_of_seed");
-                AutoHarvest.msg("notify.switch_to.off");
-                AutoHarvest.instance.toNextMode(AutoHarvest.HarvestMode.OFF);
+                AutoHarvest.msg("notify.turn.off");
+                AutoHarvest.instance.Switch = false;
                 lastUsedItem = null;
                 return null;
             }
