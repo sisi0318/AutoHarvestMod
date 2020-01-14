@@ -12,9 +12,9 @@ You just need to walk around, and all the mature crops will be harvested and re-
 3. [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
 
 ### Usage
-Use key `H` to switch between different modes. You will see the status in chat. You can change this key in Settings.
-Use key `J` to Enable/Disable Autohaverst. You will see the status in chat. You can change this key in Settings.
-Available modes are:
+Use key `H` to switch between different modes. You will see the status in chat. You can change this key in Settings.  
+Use key `J` to Enable/Disable Autohaverst. You will see the status in chat. You can change this key in Settings.  
+Available modes are:  
 
 - Harvest: Harvest the crops around you with the tool in your hand
 - Plant: Plant the seed in your hand
