@@ -33,6 +33,7 @@
  - 樹苗
  - 海帶
  - 竹子
+ - 莓果
  - 蘑菇（僅限小型）
  - 各種草
  - 各種花卉
@@ -41,4 +42,4 @@
 此mod在GPLv3下發布。
 您可以在`LICENSE`文件中找到詳細信息。
 
-複製自[RecursiveG](https://github.com/RecursiveG/AutoHarvestMod)並由本人更新到1.14.4
+複製自[RecursiveG](https://github.com/RecursiveG/AutoHarvestMod)並由本人更新到1.14.4及做後續維護

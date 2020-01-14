@@ -33,6 +33,7 @@ Supported Crops:
 - Sapling
 - Kelp
 - Bamboo
+- Berry
 - Mushroom (Small ones Only)
 - All kind of grass
 - All kind of flowers
