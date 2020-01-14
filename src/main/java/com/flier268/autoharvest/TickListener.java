@@ -23,6 +23,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.Collection;
+import java.util.Objects;
 
 public class TickListener {
     private final int range;
@@ -90,15 +91,15 @@ public class TickListener {
     /* clear all grass on land */
     private void seedTick() {
         World w = p.getEntityWorld();
-        int X = (int) Math.floor(p.x);
-        int Y = (int) Math.floor(p.y);//the "leg block"
-        int Z = (int) Math.floor(p.z);
+        int X = (int) Math.floor(p.getX());
+        int Y = (int) Math.floor(p.getY());//the "leg block"
+        int Z = (int) Math.floor(p.getZ());
         for (int deltaY = 3; deltaY >= -2; --deltaY)
             for (int deltaX = -range; deltaX <= range; ++deltaX)
                 for (int deltaZ = -range; deltaZ <= range; ++deltaZ) {
                     BlockPos pos = new BlockPos(X + deltaX, Y + deltaY, Z + deltaZ);
                     if (CropManager.isWeedBlock(w, pos)) {
-                        MinecraftClient.getInstance().interactionManager.method_2902(pos, Direction.UP);
+                        MinecraftClient.getInstance().interactionManager.attackBlock(pos, Direction.UP);
                         return;
                     }
                 }
@@ -107,9 +108,9 @@ public class TickListener {
     /* harvest all mature crops */
     private void harvestTick() {
         World w = p.getEntityWorld();
-        int X = (int) Math.floor(p.x);
-        int Y = (int) Math.floor(p.y + 0.2D);//the "leg block", in case in soul sand
-        int Z = (int) Math.floor(p.z);
+        int X = (int) Math.floor(p.getX());
+        int Y = (int) Math.floor(p.getY() + 0.2D);//the "leg block", in case in soul sand
+        int Z = (int) Math.floor(p.getZ());
         for (int deltaX = -range; deltaX <= range; ++deltaX)
             for (int deltaZ = -range; deltaZ <= range; ++deltaZ) {
                 for (int deltaY = -1; deltaY <= 1; ++deltaY) {
@@ -123,7 +124,7 @@ public class TickListener {
                             ActionResult a=  MinecraftClient.getInstance().interactionManager.interactBlock(p, MinecraftClient.getInstance().world, Hand.MAIN_HAND, blockHitResult);
                             String ass="";
                         } else
-                            MinecraftClient.getInstance().interactionManager.method_2902(pos, Direction.UP);
+                            MinecraftClient.getInstance().interactionManager.attackBlock(pos, Direction.UP);
                         return;
                     }
                 }
@@ -186,9 +187,9 @@ public class TickListener {
         }
 
         World w = p.getEntityWorld();
-        int X = (int) Math.floor(p.x);
-        int Y = (int) Math.floor(p.y + 0.2D);//the "leg block" , in case in soul sand
-        int Z = (int) Math.floor(p.z);
+        int X = (int) Math.floor(p.getX());
+        int Y = (int) Math.floor(p.getY() + 0.2D);//the "leg block" , in case in soul sand
+        int Z = (int) Math.floor(p.getZ());
 
         for (int deltaX = -range; deltaX <= range; ++deltaX)
             for (int deltaZ = -range; deltaZ <= range; ++deltaZ) {
@@ -208,9 +209,9 @@ public class TickListener {
 
     private void plantCocoaTick(ItemStack handItem) {
         World w = p.getEntityWorld();
-        int X = (int) Math.floor(p.x);
-        int Y = (int) Math.floor(p.y + 0.2D);//the "leg block" , in case in soul sand
-        int Z = (int) Math.floor(p.z);
+        int X = (int) Math.floor(p.getX());
+        int Y = (int) Math.floor(p.getY() + 0.2D);//the "leg block" , in case in soul sand
+        int Z = (int) Math.floor(p.getZ());
 
         for (int deltaX = -range; deltaX <= range; ++deltaX) {
             for (int deltaZ = -range; deltaZ <= range; ++deltaZ) {
@@ -267,9 +268,9 @@ public class TickListener {
     }
 
     private boolean canReachBlock(ClientPlayerEntity playerEntity, BlockPos blockpos) {
-        double d0 = playerEntity.x - ((double) blockpos.getX() + 0.5D);
-        double d1 = playerEntity.y - ((double) blockpos.getY() + 0.5D) + 1.5D;
-        double d2 = playerEntity.z - ((double) blockpos.getZ() + 0.5D);
+        double d0 = playerEntity.getX() - ((double) blockpos.getX() + 0.5D);
+        double d1 = playerEntity.getY() - ((double) blockpos.getY() + 0.5D) + 1.5D;
+        double d2 = playerEntity.getZ() - ((double) blockpos.getZ() + 0.5D);
         double d3 = d0 * d0 + d1 * d1 + d2 * d2;
         return d3 <= 36D;
     }
@@ -278,10 +279,10 @@ public class TickListener {
         ItemStack handItem = tryFillItemInHand();
         if (handItem == null) return;
         Collection<Class<? extends AnimalEntity>> animalList = CropManager.FEED_MAP.get(handItem.getItem());
-        Box box = new Box(p.x - range, p.y - range, p.z - range,
-                p.x + range, p.y + range, p.z + range);
+        Box box = new Box(p.getX() - range, p.getY() - range, p.getZ() - range,
+                p.getX() + range, p.getY() + range, p.getZ() + range);
         for (Class<? extends AnimalEntity> type : animalList) {
-            for (AnimalEntity e : p.getEntityWorld().getEntities(type, box)) {
+            for (AnimalEntity e : p.getEntityWorld().getEntities(type, box, null)) {
                 if (e.getBreedingAge() >= 0 && !e.isInLove()) {
                     lastUsedItem = handItem.copy();
                     ActionResult result = MinecraftClient.getInstance().interactionManager
@@ -290,7 +291,7 @@ public class TickListener {
             }
         }
         if (handItem.getItem() == Items.SHEARS) {
-            for (SheepEntity e : p.getEntityWorld().getEntities(SheepEntity.class, box)) {
+            for (SheepEntity e : p.getEntityWorld().getEntities(SheepEntity.class, box,null)) {
                 if (!e.isBaby() && !e.isSheared()) {
                     lastUsedItem = handItem.copy();
                     MinecraftClient.getInstance().interactionManager.interactEntity(p, e, Hand.MAIN_HAND);
@@ -306,7 +307,7 @@ public class TickListener {
 
     private boolean isFishBites(ClientPlayerEntity player) {
         FishingBobberEntity fishEntity = player.fishHook;
-        return fishEntity != null && (fishEntity.prevX - fishEntity.x) == 0 && (fishEntity.prevZ - fishEntity.z) == 0 && (fishEntity.prevY - fishEntity.y) < -0.05d;
+        return fishEntity != null && (fishEntity.prevX - fishEntity.getX()) == 0 && (fishEntity.prevZ - fishEntity.getZ()) == 0 && (fishEntity.prevY - fishEntity.getY()) < -0.05d;
     }
 
 

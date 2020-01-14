@@ -43,7 +43,7 @@ public class TaskManager {
                 case "moveitem":
                     MinecraftClient mc = MinecraftClient.getInstance();
                     Container container = mc.player.playerContainer;
-                    mc.interactionManager.method_2906(container.syncId, Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), SlotActionType.SWAP, mc.player);
+                    mc.interactionManager.clickSlot(container.syncId, Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), SlotActionType.SWAP, mc.player);
                     taskList.remove(0);
                     break;
             }
