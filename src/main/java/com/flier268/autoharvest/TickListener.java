@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.event.client.ClientTickCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SweetBerryBushBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -38,6 +39,11 @@ public class TickListener {
             if (AutoHarvest.instance.Switch)
                 onTick(e.player);
         });
+    }
+
+    public void Reset() {
+        lastUsedItem = null;
+        fishBitesAt = 0L;
     }
 
     public void onTick(ClientPlayerEntity player) {
@@ -111,7 +117,13 @@ public class TickListener {
                     BlockState state = w.getBlockState(pos);
                     Block b = state.getBlock();
                     if (CropManager.isCropMature(w, pos, state, b)) {
-                        MinecraftClient.getInstance().interactionManager.method_2902(pos, Direction.UP);
+                        if (b == Blocks.SWEET_BERRY_BUSH) {
+                            BlockPos downPos = pos.down();
+                            BlockHitResult blockHitResult = new BlockHitResult(new Vec3d(X + deltaX + 0.5, Y , Z + deltaZ + 0.5), Direction.UP, downPos, false);
+                            ActionResult a=  MinecraftClient.getInstance().interactionManager.interactBlock(p, MinecraftClient.getInstance().world, Hand.MAIN_HAND, blockHitResult);
+                            String ass="";
+                        } else
+                            MinecraftClient.getInstance().interactionManager.method_2902(pos, Direction.UP);
                         return;
                     }
                 }
@@ -303,9 +315,9 @@ public class TickListener {
         if (handItem == null) return;
         if (CropManager.isRod(handItem)) {
             if (CropManager.rodIsCast(handItem, p) || fishBitesAt != 0) {
-
                 /* Reel */
                 if (fishBitesAt == 0 && isFishBites(p)) {
+
                     fishBitesAt = getWorldTime();
                     MinecraftClient.getInstance().interactionManager.interactItem(
                             p,
@@ -316,6 +328,11 @@ public class TickListener {
 
                 /* Cast */
                 if (fishBitesAt != 0 && fishBitesAt + 20 <= getWorldTime()) {
+                    if (handItem.getMaxDamage() - handItem.getDamage() == 1) {
+                        AutoHarvest.msg("notify.turn.off");
+                        AutoHarvest.instance.Switch = false;
+                        return;
+                    }
                     MinecraftClient.getInstance().interactionManager.interactItem(
                             p,
                             MinecraftClient.getInstance().world,

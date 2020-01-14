@@ -47,10 +47,12 @@ public class AutoHarvest implements ModInitializer {
 
     public HarvestMode toNextMode() {
         //setDisabled();
-        mode = mode.next();
         if (listener == null) {
             listener = new TickListener(3, MinecraftClient.getInstance().player);
         }
+        else
+            listener.Reset();
+        mode = mode.next();
         return mode;
     }
 

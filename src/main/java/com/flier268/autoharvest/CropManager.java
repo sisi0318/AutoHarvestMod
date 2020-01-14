@@ -20,6 +20,7 @@ import java.util.Set;
 public class CropManager {
     public static final Block REED_BLOCK = Blocks.SUGAR_CANE;
     public static final Block NETHER_WART = Blocks.NETHER_WART;
+    public static final Block BERRY = Blocks.SWEET_BERRY_BUSH;
     public static final Block BAMBOO = Blocks.BAMBOO;
     public static final Block KELP = Blocks.KELP;
 
@@ -100,6 +101,9 @@ public class CropManager {
     public static boolean isCropMature(World w, BlockPos pos, BlockState stat, Block b) {
         if (b instanceof CropBlock) {
             return ((CropBlock) b).isMature(stat);
+        } else if (b == BERRY) {
+            if (stat.get(SweetBerryBushBlock.AGE) == 3)
+                return true;
         } else if (b == NETHER_WART) {
             if (b instanceof NetherWartBlock)
                 return stat.get(NetherWartBlock.AGE) >= 3;
