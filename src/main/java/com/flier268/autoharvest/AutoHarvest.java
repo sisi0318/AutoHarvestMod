@@ -1,15 +1,15 @@
 package com.flier268.autoharvest;
 
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.LiteralText;
-public class AutoHarvest implements ModInitializer {
+public class AutoHarvest implements ClientModInitializer {
     public static String MOD_NAME = "autoharvest";
     public boolean Switch = false;
 
     @Override
-    public void onInitialize() {
+    public void onInitializeClient() {
         if (AutoHarvest.instance == null)
             AutoHarvest.instance = new AutoHarvest();
         if (AutoHarvest.instance.KeyListener == null) {
