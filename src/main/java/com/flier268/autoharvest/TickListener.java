@@ -149,7 +149,7 @@ public class TickListener {
             ItemStack stack = null;
             if (lastUsedItem != null && !lastUsedItem.isEmpty()) {
                 DefaultedList<ItemStack> inv = p.inventory.main;
-                for (int idx = 0; idx < 36; ++idx) {
+                for (int idx = 9; idx < 36; ++idx) {
                     ItemStack s = inv.get(idx);
                     if (s.getItem() == lastUsedItem.getItem() &&
                             s.getDamage() == lastUsedItem.getDamage() &&

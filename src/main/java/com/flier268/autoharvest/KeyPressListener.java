@@ -38,7 +38,6 @@ public class KeyPressListener {
 
     public void onProcessKey(FabricKeyBinding key) {
         if (key.equals(key_ModeChange)) {
-
             String modeName = AutoHarvest.instance.toNextMode().toString().toLowerCase();
             AutoHarvest.msg("notify.switch_to." + modeName);
         } else if (key.equals(key_Switch)) {
