@@ -2,7 +2,6 @@
   "schemaVersion": 1,
   "id": "autoharvest",
   "version": "${version}",
-
   "name": "autoharvest",
   "description": "Automatically harvest and re-plant crops",
   "authors": [
@@ -20,6 +19,9 @@
   "entrypoints": {
     "client": [
       "com.flier268.autoharvest.AutoHarvest"
+    ],
+    "modmenu": [
+      "com.flier268.autoharvest.Plugin.ModMenu"
     ]
   },
   "mixins": [
@@ -32,5 +34,8 @@
   },
   "suggests": {
     "flamingo": "*"
+  },
+  "custom": {
+    "modmenu:clientsideOnly": true
   }
 }

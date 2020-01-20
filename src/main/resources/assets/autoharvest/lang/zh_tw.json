@@ -1,6 +1,7 @@
 {
   "key.autoharvest.switch":"切換自動收割啟動/停止",
   "key.autoharvest.modechange":"切換自動收割狀態",
+  "key.autoharvest.config":"設定",
   "notify.turn.on": "自動收割已啟動",
   "notify.turn.off": "自動收割已停止",
   "notify.switch_to.harvest":"已切換到 收割 模式",
@@ -11,5 +12,6 @@
   "notify.switch_to.fishing":"已切換到 釣魚 模式",
   "notify.lack_of_seed":"缺少種子",
   "notify.prefix":"[自動收割]",
-  "notify.tick_error":"發生錯誤"
+  "notify.tick_error":"發生錯誤",
+  "config.flower_is_seed": "花會被除草模式清除"
 }

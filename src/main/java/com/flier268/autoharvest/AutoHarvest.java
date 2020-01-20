@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.LiteralText;
+
 public class AutoHarvest implements ClientModInitializer {
     public static String MOD_NAME = "autoharvest";
     public boolean Switch = false;
@@ -15,6 +16,7 @@ public class AutoHarvest implements ClientModInitializer {
         if (AutoHarvest.instance.KeyListener == null) {
             AutoHarvest.instance.KeyListener = new KeyPressListener();
         }
+        Configure.getConfig().load();
     }
 
     public enum HarvestMode {

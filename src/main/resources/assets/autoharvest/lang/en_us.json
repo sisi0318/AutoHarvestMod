@@ -1,6 +1,7 @@
 {
   "key.autoharvest.switch":"AutoHarvest Switch",
   "key.autoharvest.modechange":"Switch AutoHarvest Mode",
+  "key.autoharvest.config":"Config GUI",
   "notify.turn.on": "AutoHarvest turned on",
   "notify.turn.off": "AutoHarvest turned off",
   "notify.switch_to.harvest":"Switch to: Harvest",
@@ -11,5 +12,6 @@
   "notify.switch_to.fishing":"Switch to: Fishing",
   "notify.lack_of_seed":"You need more seeds",
   "notify.prefix":"[AutoHarvest]",
-  "notify.tick_error":"Internal Error Happened"
+  "notify.tick_error":"Internal Error Happened",
+  "config.flower_is_seed": "Flowers will be cleared in Seed mode"
 }

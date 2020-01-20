@@ -43,6 +43,26 @@ public class CropManager {
         add(Blocks.KELP);
         add(Blocks.KELP_PLANT);
     }};
+    
+    public static final Set<Block> FLOWER_BLOCKS = new HashSet<Block>() {{
+        add(Blocks.DANDELION);
+        add(Blocks.POPPY);
+        add(Blocks.BLUE_ORCHID);
+        add(Blocks.ALLIUM);
+        add(Blocks.AZURE_BLUET);
+        add(Blocks.RED_TULIP);
+        add(Blocks.ORANGE_TULIP);
+        add(Blocks.WHITE_TULIP);
+        add(Blocks.PINK_TULIP);
+        add(Blocks.OXEYE_DAISY);
+        add(Blocks.CORNFLOWER);
+        add(Blocks.LILY_OF_THE_VALLEY);
+        add(Blocks.WITHER_ROSE);
+        add(Blocks.SUNFLOWER);
+        add(Blocks.LILAC);
+        add(Blocks.ROSE_BUSH);
+        add(Blocks.PEONY);
+    }};
 
     public static final BiMap<Block, Item> SEED_MAP = HashBiMap.create(
             new HashMap<Block, Item>() {{
@@ -115,6 +135,10 @@ public class CropManager {
     public static boolean isWeedBlock(World w, BlockPos pos) {
         Block b = w.getBlockState(pos).getBlock();
         return WEED_BLOCKS.contains(b);
+    }
+    public static boolean isFlowerBlock(World w, BlockPos pos) {
+        Block b = w.getBlockState(pos).getBlock();
+        return FLOWER_BLOCKS.contains(b);
     }
 
     public static boolean isCropMature(World w, BlockPos pos, BlockState stat, Block b) {

@@ -98,7 +98,7 @@ public class TickListener {
             for (int deltaX = -range; deltaX <= range; ++deltaX)
                 for (int deltaZ = -range; deltaZ <= range; ++deltaZ) {
                     BlockPos pos = new BlockPos(X + deltaX, Y + deltaY, Z + deltaZ);
-                    if (CropManager.isWeedBlock(w, pos)) {
+                    if (CropManager.isWeedBlock(w, pos) || (Configure.getConfig().getFlowerISseed() && CropManager.isFlowerBlock(w, pos))) {
                         MinecraftClient.getInstance().interactionManager.attackBlock(pos, Direction.UP);
                         return;
                     }
