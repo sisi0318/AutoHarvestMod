@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.6-SNAPSHOT'
+	id 'fabric-loom' version '0.2.7-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -28,7 +28,7 @@ dependencies {
 	modCompile "me.shedaniel.cloth:config-2:${project.cloth_config_version}"
 	include "me.shedaniel.cloth:config-2:${project.cloth_config_version}"
 	
-	modCompile 'io.github.prospector:modmenu:${project.modmenu_version}'
+	modCompile "io.github.prospector:modmenu:${project.modmenu_version}"
 }
 
 processResources {

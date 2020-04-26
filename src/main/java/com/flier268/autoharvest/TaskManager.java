@@ -2,8 +2,8 @@ package com.flier268.autoharvest;
 
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.container.Container;
-import net.minecraft.container.SlotActionType;
+import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.screen.slot.SlotActionType;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -42,7 +42,7 @@ public class TaskManager {
             switch (m.group(1)) {
                 case "moveitem":
                     MinecraftClient mc = MinecraftClient.getInstance();
-                    Container container = mc.player.playerContainer;
+                    PlayerScreenHandler container = mc.player.playerScreenHandler;
                     mc.interactionManager.clickSlot(container.syncId, Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), SlotActionType.SWAP, mc.player);
                     taskList.remove(0);
                     break;
