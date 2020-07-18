@@ -75,6 +75,7 @@ public class CropManager {
                 put(Blocks.PUMPKIN_STEM, Items.PUMPKIN_SEEDS);
                 put(Blocks.SUGAR_CANE, Items.SUGAR_CANE);
                 put(Blocks.GRASS, Items.GRASS);
+                put(Blocks.BAMBOO, Items.BAMBOO);
             }});
 
     public static final Multimap<Item, Class<? extends AnimalEntity>> FEED_MAP;
