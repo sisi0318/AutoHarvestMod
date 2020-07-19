@@ -20,13 +20,11 @@ public class KeyPressListener {
                 AutoHarvest.MOD_NAME
         );
         key_Switch = new KeyBinding("key.autoharvest.switch",
-                InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_J,
                 AutoHarvest.MOD_NAME
         );
         key_Config = new KeyBinding("key.autoharvest.config",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_UNKNOWN,
+                GLFW.GLFW_KEY_K,
                 AutoHarvest.MOD_NAME
         );
         KeyBindingHelper.registerKeyBinding(key_ModeChange);
