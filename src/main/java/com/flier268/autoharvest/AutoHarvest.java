@@ -46,7 +46,15 @@ public class AutoHarvest implements ClientModInitializer {
             listener = null;
         }
     }
-
+    public HarvestMode toSpecifiedMode(HarvestMode mode) {
+        //setDisabled();
+        if (listener == null) {
+            listener = new TickListener(3, MinecraftClient.getInstance().player);
+        } else
+            listener.Reset();
+        this.mode = mode;
+        return mode;
+    }
     public HarvestMode toNextMode() {
         //setDisabled();
         if (listener == null) {
