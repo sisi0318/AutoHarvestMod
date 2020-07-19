@@ -1,43 +1,39 @@
 package com.flier268.autoharvest;
 
 import com.flier268.autoharvest.Plugin.ClothConfig;
-import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
-import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
-import net.fabricmc.fabric.api.event.client.ClientTickCallback;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyPressListener {
 
-    private FabricKeyBinding key_Switch, key_ModeChange, key_Config;
+    private KeyBinding key_Switch, key_ModeChange, key_Config;
 
     public KeyPressListener() {
-        KeyBindingRegistry.INSTANCE.addCategory(AutoHarvest.MOD_NAME);
-        key_ModeChange = FabricKeyBinding.Builder.create(
-                new Identifier(AutoHarvest.MOD_NAME, "modechange"),
+
+        key_ModeChange = new KeyBinding("key.autoharvest.modechange",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_H,
                 AutoHarvest.MOD_NAME
-        ).build();
-        key_Switch = FabricKeyBinding.Builder.create(
-                new Identifier(AutoHarvest.MOD_NAME, "switch"),
+        );
+        key_Switch = new KeyBinding("key.autoharvest.switch",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_J,
                 AutoHarvest.MOD_NAME
-        ).build();
-        key_Config = FabricKeyBinding.Builder.create(
-                new Identifier(AutoHarvest.MOD_NAME, "config"),
+        );
+        key_Config = new KeyBinding("key.autoharvest.config",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_UNKNOWN,
                 AutoHarvest.MOD_NAME
-        ).build();
-        KeyBindingRegistry.INSTANCE.register(key_ModeChange);
-        KeyBindingRegistry.INSTANCE.register(key_Switch);
-        KeyBindingRegistry.INSTANCE.register(key_Config);
-        ClientTickCallback.EVENT.register(e ->
-        {
+        );
+        KeyBindingHelper.registerKeyBinding(key_ModeChange);
+        KeyBindingHelper.registerKeyBinding(key_Switch);
+        KeyBindingHelper.registerKeyBinding(key_Config);
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (key_ModeChange.wasPressed())
                 onProcessKey(key_ModeChange);
             else if (key_Switch.wasPressed())
@@ -47,7 +43,7 @@ public class KeyPressListener {
         });
     }
 
-    public void onProcessKey(FabricKeyBinding key) {
+    public void onProcessKey(KeyBinding key) {
         if (key.equals(key_ModeChange)) {
             String modeName = AutoHarvest.instance.toNextMode().toString().toLowerCase();
             AutoHarvest.msg("notify.switch_to." + modeName);

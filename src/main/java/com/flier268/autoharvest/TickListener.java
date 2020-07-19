@@ -1,6 +1,6 @@
 package com.flier268.autoharvest;
 
-import net.fabricmc.fabric.api.event.client.ClientTickCallback;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -33,7 +33,7 @@ public class TickListener {
     public TickListener(int range, ClientPlayerEntity player) {
         this.range = range;
         this.p = player;
-        ClientTickCallback.EVENT.register(e ->
+        ClientTickEvents.END_CLIENT_TICK.register(e ->
         {
             if (AutoHarvest.instance.Switch)
                 onTick(e.player);

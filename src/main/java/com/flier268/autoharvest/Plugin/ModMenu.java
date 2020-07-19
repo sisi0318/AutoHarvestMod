@@ -1,10 +1,8 @@
 package com.flier268.autoharvest.Plugin;
 
 import com.flier268.autoharvest.AutoHarvest;
+import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;
-import net.minecraft.client.gui.screen.Screen;
-
-import java.util.function.Function;
 
 public class ModMenu implements ModMenuApi {
     @Override
@@ -13,7 +11,7 @@ public class ModMenu implements ModMenuApi {
     }
 
     @Override
-    public Function<Screen, ? extends Screen> getConfigScreenFactory() {
+    public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return ClothConfig::openConfigScreen;
     }
 }

@@ -17,8 +17,7 @@ public class Configure {
     public Configure() {
         this.configFile = FabricLoader
                 .getInstance()
-                .getConfigDirectory()
-                .toPath()
+                .getConfigDir()
                 .resolve("AutoHarvest.json")
                 .toFile();
         flowerISseed = false;

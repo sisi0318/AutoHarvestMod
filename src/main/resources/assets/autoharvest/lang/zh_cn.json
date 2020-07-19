@@ -1,7 +1,7 @@
 {
-  "key.autoharvest.switch":"切换自动收割启动/停止",
-  "key.autoharvest.modechange":"切换自动收割状态",
-  "key.autoharvest.config":"设置",
+  "key.switch":"切换自动收割启动/停止",
+  "key.modechange":"切换自动收割状态",
+  "key.config":"设置",
   "notify.turn.on": "自动收割已启动",
   "notify.turn.off": "自动收割已停止",
   "notify.switch_to.harvest":"已切换到 收割 模式",
