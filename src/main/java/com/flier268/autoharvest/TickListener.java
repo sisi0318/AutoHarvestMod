@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.CropBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -77,6 +78,9 @@ public class TickListener {
                 case FISHING:
                     fishingTick();
                     break;
+                case BONEMEALING:
+                    bonemealingTick();
+                    break;
             }
         } catch (Exception ex) {
             AutoHarvest.msg("notify.tick_error");
@@ -118,9 +122,9 @@ public class TickListener {
                     if (CropManager.isCropMature(w, pos, state, b)) {
                         if (b == Blocks.SWEET_BERRY_BUSH) {
                             BlockPos downPos = pos.down();
-                            BlockHitResult blockHitResult = new BlockHitResult(new Vec3d(X + deltaX + 0.5, Y , Z + deltaZ + 0.5), Direction.UP, downPos, false);
-                            ActionResult a=  MinecraftClient.getInstance().interactionManager.interactBlock(p, MinecraftClient.getInstance().world, Hand.MAIN_HAND, blockHitResult);
-                            String ass="";
+                            BlockHitResult blockHitResult = new BlockHitResult(new Vec3d(X + deltaX + 0.5, Y, Z + deltaZ + 0.5), Direction.UP, downPos, false);
+                            ActionResult a = MinecraftClient.getInstance().interactionManager.interactBlock(p, MinecraftClient.getInstance().world, Hand.MAIN_HAND, blockHitResult);
+                            String ass = "";
                         } else
                             MinecraftClient.getInstance().interactionManager.attackBlock(pos, Direction.UP);
                         return;
@@ -289,7 +293,7 @@ public class TickListener {
             }
         }
         if (handItem.getItem() == Items.SHEARS) {
-            for (SheepEntity e : p.getEntityWorld().getEntities(SheepEntity.class, box,null)) {
+            for (SheepEntity e : p.getEntityWorld().getEntities(SheepEntity.class, box, null)) {
                 if (!e.isBaby() && !e.isSheared()) {
                     lastUsedItem = handItem.copy();
                     MinecraftClient.getInstance().interactionManager.interactEntity(p, e, Hand.MAIN_HAND);
@@ -340,5 +344,37 @@ public class TickListener {
                 }
             }
         }
+    }
+
+    /* clear all grass on land */
+    private void bonemealingTick() {
+        ItemStack handItem = p.getMainHandStack();
+        if (handItem == null || !CropManager.isBoneMeal(handItem)) {
+            return;
+        } else {
+            handItem = tryFillItemInHand();
+        }
+
+        World w = p.getEntityWorld();
+        int X = (int) Math.floor(p.getX());
+        int Y = (int) Math.floor(p.getY());//the "leg block"
+        int Z = (int) Math.floor(p.getZ());
+        for (int deltaY = 3; deltaY >= -2; --deltaY)
+            for (int deltaX = -range; deltaX <= range; ++deltaX)
+                for (int deltaZ = -range; deltaZ <= range; ++deltaZ) {
+                    BlockPos pos = new BlockPos(X + deltaX, Y + deltaY, Z + deltaZ);
+                    BlockState blockState = w.getBlockState(pos);
+                    Block block = blockState.getBlock();
+                    if (block instanceof CropBlock) {
+                        //not Mature
+                        if (!((CropBlock) block).isMature(blockState)) {
+                            BlockHitResult blockHitResult = new BlockHitResult(new Vec3d(X + deltaX + 0.5, Y, Z + deltaZ + 0.5), Direction.UP, pos, false);
+                            lastUsedItem = handItem.copy();
+                            ActionResult report = MinecraftClient.getInstance().interactionManager.interactBlock(MinecraftClient.getInstance().player, MinecraftClient.getInstance().world, Hand.MAIN_HAND, blockHitResult);
+                            minusOneInHand();
+                            return;
+                        }
+                    }
+                }
     }
 }

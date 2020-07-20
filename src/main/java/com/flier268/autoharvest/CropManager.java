@@ -162,6 +162,11 @@ public class CropManager {
         return false;
     }
 
+    public static boolean isBoneMeal(ItemStack stack) {
+        return (!stack.isEmpty()
+                && stack.getItem() == Items.BONE_MEAL);
+    }
+
     public static boolean isSeed(ItemStack stack) {
         return (!stack.isEmpty()
                 && SEED_MAP.containsValue(stack.getItem()));

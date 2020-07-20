@@ -24,6 +24,7 @@ public class AutoHarvest implements ClientModInitializer {
         PLANT,  // Plant only
         Farmer,  //Harvest then re-plant
         SEED,   // Harvest seeds & flowers
+        BONEMEALING,
         FEED,   // Feed animals
         FISHING;// Fishing
         private static HarvestMode[] vals = values();
