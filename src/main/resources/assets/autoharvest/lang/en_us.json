@@ -15,7 +15,7 @@
   "bonemealing": "Bonemealing mode",
   "notify.switch_to":"%s enabled",
   "notify.lack_of_seed":"You need more seeds",
-  "notify.prefix":"[AutoHarvest]",
+  "notify.prefix":"[AutoHarvest] ",
   "notify.tick_error":"Internal Error Occurred",
   "config.flower_is_seed": "Flowers will be cleared in Seed mode"
 }
