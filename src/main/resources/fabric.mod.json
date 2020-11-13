@@ -31,7 +31,7 @@
     "fabric": "*"
   },
   "suggests": {
-    "flamingo": "*"
+    "another-mod": "*"
   },
   "custom": {
     "modmenu:clientsideOnly": true

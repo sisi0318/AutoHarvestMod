@@ -284,7 +284,7 @@ public class TickListener {
         Box box = new Box(p.getX() - range, p.getY() - range, p.getZ() - range,
                 p.getX() + range, p.getY() + range, p.getZ() + range);
         for (Class<? extends AnimalEntity> type : animalList) {
-            for (AnimalEntity e : p.getEntityWorld().getEntities(type, box, null)) {
+            for (AnimalEntity e : p.getEntityWorld().getEntitiesByClass(type, box, null)) {
                 if (e.getBreedingAge() >= 0 && !e.isInLove()) {
                     lastUsedItem = handItem.copy();
                     ActionResult result = MinecraftClient.getInstance().interactionManager
@@ -293,7 +293,7 @@ public class TickListener {
             }
         }
         if (handItem.getItem() == Items.SHEARS) {
-            for (SheepEntity e : p.getEntityWorld().getEntities(SheepEntity.class, box, null)) {
+            for (SheepEntity e : p.getEntityWorld().getEntitiesByClass(SheepEntity.class, box, null)) {
                 if (!e.isBaby() && !e.isSheared()) {
                     lastUsedItem = handItem.copy();
                     MinecraftClient.getInstance().interactionManager.interactEntity(p, e, Hand.MAIN_HAND);
