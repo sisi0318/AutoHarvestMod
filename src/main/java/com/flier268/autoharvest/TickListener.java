@@ -82,7 +82,8 @@ public class TickListener {
                     bonemealingTick();
                     break;
             }
-            AutoHarvest.instance.taskManager.Add_TickSkip(AutoHarvest.instance.configure.tickSkip.value);
+            if (AutoHarvest.instance.mode != AutoHarvest.HarvestMode.FISHING)
+                AutoHarvest.instance.taskManager.Add_TickSkip(AutoHarvest.instance.configure.tickSkip.value);
         } catch (Exception ex) {
             AutoHarvest.msg("notify.tick_error");
             AutoHarvest.msg("notify.turn.off");
