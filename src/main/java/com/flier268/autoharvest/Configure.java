@@ -11,27 +11,30 @@ import java.nio.file.Files;
 public class Configure {
     private File configFile;
 
-   public FlowerISseed flowerISseed=new FlowerISseed();
-    public class FlowerISseed{
+    public FlowerISseed flowerISseed = new FlowerISseed();
+
+    public class FlowerISseed {
         public boolean value = false;
         private String name = "flowerISseed";
     }
 
-    public Effect_radius effect_radius=new Effect_radius();
-    public class Effect_radius{
+    public Effect_radius effect_radius = new Effect_radius();
+
+    public class Effect_radius {
         public int value = 3;
         private String name = "effect_radius";
         public static final int Max = 3;
         public static final int Min = 0;
     }
-    public TickSkip tickSkip=new TickSkip();
-    public class TickSkip{
+
+    public TickSkip tickSkip = new TickSkip();
+
+    public class TickSkip {
         public int value = 0;
         private String name = "tick_skip";
         public static final int Max = 100;
         public static final int Min = 0;
     }
-
 
 
     public Configure() {
