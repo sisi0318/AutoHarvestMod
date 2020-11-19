@@ -12,7 +12,7 @@ import org.lwjgl.glfw.GLFW;
 public class KeyPressListener {
 
     private KeyBinding key_Switch, key_ModeChange, key_Config;
-    private KeyBinding key_HARVEST, key_PLANT, key_Farmer, key_SEED, key_FEED, key_FISHING,Key_BONEMEALING;
+    private KeyBinding key_HARVEST, key_PLANT, key_Farmer, key_SEED, key_FEED, key_FISHING, Key_BONEMEALING;
 
     public KeyPressListener() {
         String categoryGeneral = new TranslatableText("key.category.general").getString();

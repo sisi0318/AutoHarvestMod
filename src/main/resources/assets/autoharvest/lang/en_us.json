@@ -17,5 +17,6 @@
   "notify.lack_of_seed":"You need more seeds",
   "notify.prefix":"[AutoHarvest] ",
   "notify.tick_error":"Internal Error Occurred",
-  "config.flower_is_seed": "Flowers will be cleared in Seed mode"
+  "config.flower_is_seed": "Flowers will be cleared in Seed mode",
+  "config.effect_radius": "Radius of effect"
 }

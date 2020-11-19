@@ -17,5 +17,6 @@
   "notify.lack_of_seed":"缺少種子",
   "notify.prefix":"[自動收割]",
   "notify.tick_error":"發生錯誤",
-  "config.flower_is_seed": "花會被除草模式清除"
+  "config.flower_is_seed": "花會被除草模式清除",
+  "config.effect_radius": "作用半徑"
 }
