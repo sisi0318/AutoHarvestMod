@@ -43,7 +43,7 @@ public class CropManager {
         add(Blocks.KELP);
         add(Blocks.KELP_PLANT);
     }};
-    
+
     public static final Set<Block> FLOWER_BLOCKS = new HashSet<Block>() {{
         add(Blocks.DANDELION);
         add(Blocks.POPPY);
@@ -114,29 +114,30 @@ public class CropManager {
         FEED_MAP.put(Items.SALMON, CatEntity.class);
 
         //1.15
-        FEED_MAP.put(Items.DANDELION ,  BeeEntity.class);
-        FEED_MAP.put(Items.POPPY ,  BeeEntity.class);
-        FEED_MAP.put(Items.BLUE_ORCHID ,  BeeEntity.class);
-        FEED_MAP.put(Items.ALLIUM ,  BeeEntity.class);
-        FEED_MAP.put(Items.AZURE_BLUET ,  BeeEntity.class);
-        FEED_MAP.put(Items.RED_TULIP ,  BeeEntity.class);
-        FEED_MAP.put(Items.ORANGE_TULIP ,  BeeEntity.class);
-        FEED_MAP.put(Items.WHITE_TULIP ,  BeeEntity.class);
-        FEED_MAP.put(Items.PINK_TULIP ,  BeeEntity.class);
-        FEED_MAP.put(Items.OXEYE_DAISY ,  BeeEntity.class);
-        FEED_MAP.put(Items.CORNFLOWER ,  BeeEntity.class);
-        FEED_MAP.put(Items.LILY_OF_THE_VALLEY ,  BeeEntity.class);
-        FEED_MAP.put(Items.WITHER_ROSE ,  BeeEntity.class);
-        FEED_MAP.put(Items.SUNFLOWER ,  BeeEntity.class);
-        FEED_MAP.put(Items.LILAC ,  BeeEntity.class);
-        FEED_MAP.put(Items.ROSE_BUSH ,  BeeEntity.class);
-        FEED_MAP.put(Items.PEONY ,  BeeEntity.class);
+        FEED_MAP.put(Items.DANDELION, BeeEntity.class);
+        FEED_MAP.put(Items.POPPY, BeeEntity.class);
+        FEED_MAP.put(Items.BLUE_ORCHID, BeeEntity.class);
+        FEED_MAP.put(Items.ALLIUM, BeeEntity.class);
+        FEED_MAP.put(Items.AZURE_BLUET, BeeEntity.class);
+        FEED_MAP.put(Items.RED_TULIP, BeeEntity.class);
+        FEED_MAP.put(Items.ORANGE_TULIP, BeeEntity.class);
+        FEED_MAP.put(Items.WHITE_TULIP, BeeEntity.class);
+        FEED_MAP.put(Items.PINK_TULIP, BeeEntity.class);
+        FEED_MAP.put(Items.OXEYE_DAISY, BeeEntity.class);
+        FEED_MAP.put(Items.CORNFLOWER, BeeEntity.class);
+        FEED_MAP.put(Items.LILY_OF_THE_VALLEY, BeeEntity.class);
+        FEED_MAP.put(Items.WITHER_ROSE, BeeEntity.class);
+        FEED_MAP.put(Items.SUNFLOWER, BeeEntity.class);
+        FEED_MAP.put(Items.LILAC, BeeEntity.class);
+        FEED_MAP.put(Items.ROSE_BUSH, BeeEntity.class);
+        FEED_MAP.put(Items.PEONY, BeeEntity.class);
     }
 
     public static boolean isWeedBlock(World w, BlockPos pos) {
         Block b = w.getBlockState(pos).getBlock();
         return WEED_BLOCKS.contains(b);
     }
+
     public static boolean isFlowerBlock(World w, BlockPos pos) {
         Block b = w.getBlockState(pos).getBlock();
         return FLOWER_BLOCKS.contains(b);

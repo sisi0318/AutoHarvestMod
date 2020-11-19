@@ -6,8 +6,16 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 
 public class AutoHarvest implements ClientModInitializer {
-    public static String MOD_NAME = "autoharvest";
+    public static final String MOD_NAME = "autoharvest";
+    public static AutoHarvest instance;
+    public HarvestMode mode = HarvestMode.FISHING;
+    public TickListener listener = null;
+    public KeyPressListener KeyListener = null;
+
+    TaskManager taskManager = new TaskManager();
+
     public boolean Switch = false;
+    public Configure configure = new Configure();
 
     @Override
     public void onInitializeClient() {
@@ -16,7 +24,7 @@ public class AutoHarvest implements ClientModInitializer {
         if (AutoHarvest.instance.KeyListener == null) {
             AutoHarvest.instance.KeyListener = new KeyPressListener();
         }
-        Configure.getConfig().load();
+        AutoHarvest.instance.configure.load();
     }
 
     public enum HarvestMode {
@@ -34,32 +42,21 @@ public class AutoHarvest implements ClientModInitializer {
         }
     }
 
-    //@Mod.Instance
-    public static AutoHarvest instance;
-    public HarvestMode mode = HarvestMode.FISHING;
-    public TickListener listener = null;
-    public KeyPressListener KeyListener = null;
 
-    TaskManager taskManager = new TaskManager();
-
-    private void setDisabled() {
-        if (listener != null) {
-            listener = null;
-        }
-    }
     public HarvestMode toSpecifiedMode(HarvestMode mode) {
         //setDisabled();
         if (listener == null) {
-            listener = new TickListener(3, MinecraftClient.getInstance().player);
+            listener = new TickListener(configure, MinecraftClient.getInstance().player);
         } else
             listener.Reset();
         this.mode = mode;
         return mode;
     }
+
     public HarvestMode toNextMode() {
         //setDisabled();
         if (listener == null) {
-            listener = new TickListener(3, MinecraftClient.getInstance().player);
+            listener = new TickListener(configure, MinecraftClient.getInstance().player);
         } else
             listener.Reset();
         mode = mode.next();

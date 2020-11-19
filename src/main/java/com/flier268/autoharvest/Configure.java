@@ -2,18 +2,21 @@ package com.flier268.autoharvest;
 
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 
 public class Configure {
-    private static Configure instance = null;
     private File configFile;
 
-    private boolean flowerISseed;
-
+    public boolean flowerISseed = false;
+    private String property_flowerISseed = "flowerISseed";
+    public int effect_radius = 3;
+    private String property_effect_radius = "effect_radius";
+    public static final int effect_radiusMax = 3;
+    public static final int effect_radiusMin = 0;
     public Configure() {
         this.configFile = FabricLoader
                 .getInstance()
@@ -23,28 +26,31 @@ public class Configure {
         flowerISseed = false;
     }
 
-    public static Configure getConfig() {
-        if (instance == null) {
-            instance = new Configure();
-        }
-        return instance;
-    }
-
-    public void load() {
+    public Configure load() {
         try {
+            if (!Files.exists(this.configFile.toPath()))
+                return this;
             String jsonStr = new String(Files.readAllBytes(this.configFile.toPath()));
-            if (!jsonStr. equals("")) {
+            if (!jsonStr.equals("")) {
                 JsonParser jsonParser = new JsonParser();
-                JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonStr);
-                this.flowerISseed = jsonObject.getAsJsonPrimitive("flowerISseed").getAsBoolean();
+                JsonObject jsonObject = jsonParser.parse(jsonStr).getAsJsonObject();
+
+                this.flowerISseed = jsonObject.getAsJsonPrimitive(property_flowerISseed).getAsBoolean();
+                this.effect_radius = jsonObject.getAsJsonPrimitive(property_effect_radius).getAsInt();
+                if (effect_radius <= effect_radiusMin || effect_radius > effect_radiusMax)
+                    effect_radius = effect_radiusMax;
+                return this;
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
-    public void save() {
+    public Configure save() {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("flowerISseed", this.flowerISseed);
+        jsonObject.addProperty(property_flowerISseed, this.flowerISseed);
+        jsonObject.addProperty(property_effect_radius, this.effect_radius);
 
         JsonParser parser = new JsonParser();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -54,13 +60,6 @@ public class Configure {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    public boolean getFlowerISseed() {
-        return flowerISseed;
-    }
-
-    public void setFlowerISseed(boolean flowerISseed) {
-        this.flowerISseed = flowerISseed;
+        return this;
     }
 }
