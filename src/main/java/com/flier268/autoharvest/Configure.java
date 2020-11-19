@@ -11,19 +11,27 @@ import java.nio.file.Files;
 public class Configure {
     private File configFile;
 
-    public boolean flowerISseed = false;
-    private String property_flowerISseed = "flowerISseed";
-    public int effect_radius = 3;
-    private String property_effect_radius = "effect_radius";
-    public static final int effect_radiusMax = 3;
-    public static final int effect_radiusMin = 0;
+   public FlowerISseed flowerISseed=new FlowerISseed();
+    public class FlowerISseed{
+        public boolean value = false;
+        private String name = "flowerISseed";
+    }
+
+    public Effect_radius effect_radius=new Effect_radius();
+    public class Effect_radius{
+        public int value = 3;
+        private String name = "effect_radius";
+        public static final int Max = 3;
+        public static final int Min = 0;
+    }
+
     public Configure() {
         this.configFile = FabricLoader
                 .getInstance()
                 .getConfigDir()
                 .resolve("AutoHarvest.json")
                 .toFile();
-        flowerISseed = false;
+        flowerISseed.value = false;
     }
 
     public Configure load() {
@@ -35,10 +43,10 @@ public class Configure {
                 JsonParser jsonParser = new JsonParser();
                 JsonObject jsonObject = jsonParser.parse(jsonStr).getAsJsonObject();
 
-                this.flowerISseed = jsonObject.getAsJsonPrimitive(property_flowerISseed).getAsBoolean();
-                this.effect_radius = jsonObject.getAsJsonPrimitive(property_effect_radius).getAsInt();
-                if (effect_radius <= effect_radiusMin || effect_radius > effect_radiusMax)
-                    effect_radius = effect_radiusMax;
+                this.flowerISseed.value = jsonObject.getAsJsonPrimitive(flowerISseed.name).getAsBoolean();
+                this.effect_radius.value = jsonObject.getAsJsonPrimitive(effect_radius.name).getAsInt();
+                if (effect_radius.value <= Effect_radius.Min || effect_radius.value > Effect_radius.Max)
+                    effect_radius.value = Effect_radius.Max;
                 return this;
             }
         } catch (Exception e) {
@@ -49,8 +57,8 @@ public class Configure {
 
     public Configure save() {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty(property_flowerISseed, this.flowerISseed);
-        jsonObject.addProperty(property_effect_radius, this.effect_radius);
+        jsonObject.addProperty(flowerISseed.name, this.flowerISseed.value);
+        jsonObject.addProperty(effect_radius.name, this.effect_radius.value);
 
         JsonParser parser = new JsonParser();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

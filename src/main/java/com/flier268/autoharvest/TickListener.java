@@ -97,10 +97,10 @@ public class TickListener {
         int Y = (int) Math.floor(p.getY());//the "leg block"
         int Z = (int) Math.floor(p.getZ());
         for (int deltaY = 3; deltaY >= -2; --deltaY)
-            for (int deltaX = -configure.effect_radius; deltaX <= configure.effect_radius; ++deltaX)
-                for (int deltaZ = -configure.effect_radius; deltaZ <= configure.effect_radius; ++deltaZ) {
+            for (int deltaX = -configure.effect_radius.value; deltaX <= configure.effect_radius.value; ++deltaX)
+                for (int deltaZ = -configure.effect_radius.value; deltaZ <= configure.effect_radius.value; ++deltaZ) {
                     BlockPos pos = new BlockPos(X + deltaX, Y + deltaY, Z + deltaZ);
-                    if (CropManager.isWeedBlock(w, pos) || (AutoHarvest.instance.configure.flowerISseed && CropManager.isFlowerBlock(w, pos))) {
+                    if (CropManager.isWeedBlock(w, pos) || (AutoHarvest.instance.configure.flowerISseed.value && CropManager.isFlowerBlock(w, pos))) {
                         MinecraftClient.getInstance().interactionManager.attackBlock(pos, Direction.UP);
                         return;
                     }
@@ -113,8 +113,8 @@ public class TickListener {
         int X = (int) Math.floor(p.getX());
         int Y = (int) Math.floor(p.getY() + 0.2D);//the "leg block", in case in soul sand
         int Z = (int) Math.floor(p.getZ());
-        for (int deltaX = -configure.effect_radius; deltaX <= configure.effect_radius; ++deltaX)
-            for (int deltaZ = -configure.effect_radius; deltaZ <= configure.effect_radius; ++deltaZ) {
+        for (int deltaX = -configure.effect_radius.value; deltaX <= configure.effect_radius.value; ++deltaX)
+            for (int deltaZ = -configure.effect_radius.value; deltaZ <= configure.effect_radius.value; ++deltaZ) {
                 for (int deltaY = -1; deltaY <= 1; ++deltaY) {
                     BlockPos pos = new BlockPos(X + deltaX, Y + deltaY, Z + deltaZ);
                     BlockState state = w.getBlockState(pos);
@@ -193,8 +193,8 @@ public class TickListener {
         int Y = (int) Math.floor(p.getY() + 0.2D);//the "leg block" , in case in soul sand
         int Z = (int) Math.floor(p.getZ());
 
-        for (int deltaX = -configure.effect_radius; deltaX <= configure.effect_radius; ++deltaX)
-            for (int deltaZ = -configure.effect_radius; deltaZ <= configure.effect_radius; ++deltaZ) {
+        for (int deltaX = -configure.effect_radius.value; deltaX <= configure.effect_radius.value; ++deltaX)
+            for (int deltaZ = -configure.effect_radius.value; deltaZ <= configure.effect_radius.value; ++deltaZ) {
                 BlockPos pos = new BlockPos(X + deltaX, Y, Z + deltaZ);
                 if (w.getBlockState(pos).getBlock() != Blocks.AIR) continue;
                 BlockPos downPos = pos.down();
@@ -215,8 +215,8 @@ public class TickListener {
         int Y = (int) Math.floor(p.getY() + 0.2D);//the "leg block" , in case in soul sand
         int Z = (int) Math.floor(p.getZ());
 
-        for (int deltaX = -configure.effect_radius; deltaX <= configure.effect_radius; ++deltaX) {
-            for (int deltaZ = -configure.effect_radius; deltaZ <= configure.effect_radius; ++deltaZ) {
+        for (int deltaX = -configure.effect_radius.value; deltaX <= configure.effect_radius.value; ++deltaX) {
+            for (int deltaZ = -configure.effect_radius.value; deltaZ <= configure.effect_radius.value; ++deltaZ) {
                 for (int deltaY = 0; deltaY <= 7; ++deltaY) {
                     BlockPos pos = new BlockPos(X + deltaX, Y + deltaY, Z + deltaZ);
                     if (!canReachBlock(p, pos)) continue;
@@ -281,8 +281,8 @@ public class TickListener {
         ItemStack handItem = tryFillItemInHand();
         if (handItem == null) return;
         Collection<Class<? extends AnimalEntity>> animalList = CropManager.FEED_MAP.get(handItem.getItem());
-        Box box = new Box(p.getX() - configure.effect_radius, p.getY() - configure.effect_radius, p.getZ() - configure.effect_radius,
-                p.getX() + configure.effect_radius, p.getY() + configure.effect_radius, p.getZ() + configure.effect_radius);
+        Box box = new Box(p.getX() - configure.effect_radius.value, p.getY() - configure.effect_radius.value, p.getZ() - configure.effect_radius.value,
+                p.getX() + configure.effect_radius.value, p.getY() + configure.effect_radius.value, p.getZ() + configure.effect_radius.value);
         for (Class<? extends AnimalEntity> type : animalList) {
             for (AnimalEntity e : p.getEntityWorld().getEntitiesByClass(type, box, null)) {
                 if (e.getBreedingAge() >= 0 && !e.isInLove()) {
@@ -360,8 +360,8 @@ public class TickListener {
         int Y = (int) Math.floor(p.getY());//the "leg block"
         int Z = (int) Math.floor(p.getZ());
         for (int deltaY = 3; deltaY >= -2; --deltaY)
-            for (int deltaX = -configure.effect_radius; deltaX <= configure.effect_radius; ++deltaX)
-                for (int deltaZ = -configure.effect_radius; deltaZ <= configure.effect_radius; ++deltaZ) {
+            for (int deltaX = -configure.effect_radius.value; deltaX <= configure.effect_radius.value; ++deltaX)
+                for (int deltaZ = -configure.effect_radius.value; deltaZ <= configure.effect_radius.value; ++deltaZ) {
                     BlockPos pos = new BlockPos(X + deltaX, Y + deltaY, Z + deltaZ);
                     BlockState blockState = w.getBlockState(pos);
                     Block block = blockState.getBlock();
