@@ -166,10 +166,6 @@ public class TickListener {
                 return null;
             }
             if (supplmentIdx < 0) {
-                AutoHarvest.msg("notify.lack_of_seed");
-                AutoHarvest.msg("notify.turn.off");
-                AutoHarvest.instance.Switch = false;
-                lastUsedItem = null;
                 return null;
             }
             AutoHarvest.instance.taskManager.Add_MoveItem(supplmentIdx, p.inventory.selectedSlot);
