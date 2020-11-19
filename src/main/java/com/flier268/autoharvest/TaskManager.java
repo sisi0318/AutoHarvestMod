@@ -6,14 +6,36 @@ import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.slot.SlotActionType;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TaskManager {
-    private ArrayList<String> taskList = new ArrayList();
+    private ArrayList<Line> taskList = new ArrayList();
 
-    public void Add(int slotNumber, int currentHotbarSlot) {
-        taskList.add(String.format("moveitem,%d,%d", slotNumber, currentHotbarSlot));
+    enum Commands {
+        MOVEITEM,
+        SKIPTICK
+    }
+
+    class Line {
+        public Line(Commands command, Object... args) {
+            Command = command;
+            Args = args;
+        }
+
+        Commands Command;
+        Object[] Args;
+    }
+
+    public void Add_MoveItem(int slotNumber, int currentHotbarSlot) {
+        taskList.add(new Line(Commands.MOVEITEM, slotNumber, currentHotbarSlot));
+    }
+
+    public void Add_TickSkip() {
+        Add_TickSkip(1);
+    }
+
+    public void Add_TickSkip(int skipTick) {
+        for (int i = 0; i < skipTick; i++)
+            taskList.add(new Line(Commands.SKIPTICK));
     }
 
     public int Count() {
@@ -31,22 +53,16 @@ public class TaskManager {
     public void RunATask() {
         if (taskList.size() == 0)
             return;
-        String pattern = "(.*?),(.*?),(.*)";
-
-        // 创建 Pattern 对象
-        Pattern r = Pattern.compile(pattern);
-
-        // 现在创建 matcher 对象
-        Matcher m = r.matcher(taskList.get(0));
-        if (m.find()) {
-            switch (m.group(1)) {
-                case "moveitem":
-                    MinecraftClient mc = MinecraftClient.getInstance();
-                    PlayerScreenHandler container = mc.player.playerScreenHandler;
-                    mc.interactionManager.clickSlot(container.syncId, Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), SlotActionType.SWAP, mc.player);
-                    taskList.remove(0);
-                    break;
-            }
+        Line line = taskList.get(0);
+        switch (line.Command) {
+            case MOVEITEM:
+                MinecraftClient mc = MinecraftClient.getInstance();
+                PlayerScreenHandler container = mc.player.playerScreenHandler;
+                mc.interactionManager.clickSlot(container.syncId, (int) line.Args[0], (int) line.Args[1], SlotActionType.SWAP, mc.player);
+                break;
+            case SKIPTICK:
+                break;
         }
+        taskList.remove(0);
     }
 }

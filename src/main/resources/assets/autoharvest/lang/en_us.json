@@ -18,5 +18,7 @@
   "notify.prefix":"[AutoHarvest] ",
   "notify.tick_error":"Internal Error Occurred",
   "config.flower_is_seed": "Flowers will be cleared in Seed mode",
-  "config.effect_radius": "Radius of effect"
+  "config.effect_radius": "Radius of effect",
+  "config.tick_skip": "Skip n tick",
+  "config.tick_skip_tooltip": "20 tick / s"
 }

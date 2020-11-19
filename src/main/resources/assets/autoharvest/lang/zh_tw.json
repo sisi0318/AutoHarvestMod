@@ -18,5 +18,7 @@
   "notify.prefix":"[自動收割]",
   "notify.tick_error":"發生錯誤",
   "config.flower_is_seed": "花會被除草模式清除",
-  "config.effect_radius": "作用半徑"
+  "config.effect_radius": "作用半徑",
+  "config.tick_skip": "跳過n刻",
+  "config.tick_skip_tooltip": "20刻 / 秒"
 }

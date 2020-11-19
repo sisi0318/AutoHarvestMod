@@ -24,6 +24,15 @@ public class Configure {
         public static final int Max = 3;
         public static final int Min = 0;
     }
+    public TickSkip tickSkip=new TickSkip();
+    public class TickSkip{
+        public int value = 0;
+        private String name = "tick_skip";
+        public static final int Max = 100;
+        public static final int Min = 0;
+    }
+
+
 
     public Configure() {
         this.configFile = FabricLoader
@@ -43,14 +52,34 @@ public class Configure {
                 JsonParser jsonParser = new JsonParser();
                 JsonObject jsonObject = jsonParser.parse(jsonStr).getAsJsonObject();
 
-                this.flowerISseed.value = jsonObject.getAsJsonPrimitive(flowerISseed.name).getAsBoolean();
-                this.effect_radius.value = jsonObject.getAsJsonPrimitive(effect_radius.name).getAsInt();
-                if (effect_radius.value <= Effect_radius.Min || effect_radius.value > Effect_radius.Max)
-                    effect_radius.value = Effect_radius.Max;
+                if (jsonObject.has(flowerISseed.name)) {
+                    try {
+                        this.flowerISseed.value = jsonObject.getAsJsonPrimitive(flowerISseed.name).getAsBoolean();
+                    } catch (Exception e) {
+                    }
+                }
+                if (jsonObject.has(effect_radius.name)) {
+                    try {
+                        this.effect_radius.value = jsonObject.getAsJsonPrimitive(effect_radius.name).getAsInt();
+                        if (effect_radius.value < Effect_radius.Min || effect_radius.value > Effect_radius.Max)
+                            effect_radius.value = Effect_radius.Max;
+                    } catch (Exception e) {
+                    }
+                }
+                if (jsonObject.has(tickSkip.name)) {
+                    try {
+                        this.tickSkip.value = jsonObject.getAsJsonPrimitive(tickSkip.name).getAsInt();
+                        if (tickSkip.value < TickSkip.Min || tickSkip.value > TickSkip.Max)
+                            tickSkip.value = TickSkip.Min;
+                    } catch (Exception e) {
+                    }
+                }
+
+
                 return this;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return null;
     }
@@ -59,7 +88,7 @@ public class Configure {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty(flowerISseed.name, this.flowerISseed.value);
         jsonObject.addProperty(effect_radius.name, this.effect_radius.value);
-
+        jsonObject.addProperty(tickSkip.name, this.tickSkip.value);
         JsonParser parser = new JsonParser();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonElement el = parser.parse(jsonObject.toString());

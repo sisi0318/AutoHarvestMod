@@ -82,6 +82,7 @@ public class TickListener {
                     bonemealingTick();
                     break;
             }
+            AutoHarvest.instance.taskManager.Add_TickSkip(AutoHarvest.instance.configure.tickSkip.value);
         } catch (Exception ex) {
             AutoHarvest.msg("notify.tick_error");
             AutoHarvest.msg("notify.turn.off");
@@ -171,7 +172,7 @@ public class TickListener {
                 lastUsedItem = null;
                 return null;
             }
-            AutoHarvest.instance.taskManager.Add(supplmentIdx, p.inventory.selectedSlot);
+            AutoHarvest.instance.taskManager.Add_MoveItem(supplmentIdx, p.inventory.selectedSlot);
             return null;
         } else {
             return itemStack;
