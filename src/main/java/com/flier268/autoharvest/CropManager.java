@@ -6,6 +6,7 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.*;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.mob.HoglinEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -42,6 +43,9 @@ public class CropManager {
         add(Blocks.TALL_SEAGRASS);
         add(Blocks.KELP);
         add(Blocks.KELP_PLANT);
+        // 1.16
+        add(Blocks.CRIMSON_ROOTS);
+        add(Blocks.WARPED_ROOTS);
     }};
 
     public static final Set<Block> FLOWER_BLOCKS = new HashSet<Block>() {{
@@ -76,6 +80,9 @@ public class CropManager {
                 put(Blocks.SUGAR_CANE, Items.SUGAR_CANE);
                 put(Blocks.GRASS, Items.GRASS);
                 put(Blocks.BAMBOO, Items.BAMBOO);
+                // 1.16
+                put(Blocks.CRIMSON_FUNGUS, Items.CRIMSON_FUNGUS);
+                put(Blocks.WARPED_FUNGUS, Items.WARPED_FUNGUS);
             }});
 
     public static final Multimap<Item, Class<? extends AnimalEntity>> FEED_MAP;
@@ -131,6 +138,10 @@ public class CropManager {
         FEED_MAP.put(Items.LILAC, BeeEntity.class);
         FEED_MAP.put(Items.ROSE_BUSH, BeeEntity.class);
         FEED_MAP.put(Items.PEONY, BeeEntity.class);
+
+        //1.16
+        FEED_MAP.put(Items.WARPED_FUNGUS, StriderEntity.class);
+        FEED_MAP.put(Items.CRIMSON_FUNGUS, HoglinEntity.class);
     }
 
     public static boolean isWeedBlock(World w, BlockPos pos) {
