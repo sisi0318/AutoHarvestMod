@@ -20,5 +20,6 @@
   "config.flower_is_seed": "花會被除草模式清除",
   "config.effect_radius": "作用半徑",
   "config.tick_skip": "跳過n刻",
-  "config.tick_skip_tooltip": "20刻 / 秒"
+  "config.tick_skip_tooltip": "20刻 / 秒",
+  "config.keep_fishing_rod_alive": "不破壞魚桿"
 }
