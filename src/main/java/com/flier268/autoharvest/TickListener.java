@@ -152,8 +152,6 @@ public class TickListener {
     private ItemStack tryFillItemInHand() {
         ItemStack itemStack = p.getMainHandStack();
         if (itemStack.isEmpty()) {
-            int supplmentIdx = -1;
-            ItemStack stack = null;
             if (lastUsedItem != null && !lastUsedItem.isEmpty()) {
                 DefaultedList<ItemStack> inv = p.inventory.main;
                 for (int idx = 0; idx < 36; ++idx) {
@@ -161,18 +159,11 @@ public class TickListener {
                     if (s.getItem() == lastUsedItem.getItem() &&
                             s.getDamage() == lastUsedItem.getDamage() &&
                             !s.hasTag()) {
-                        supplmentIdx = idx;
-                        stack = s;
-                        break;
+                        AutoHarvest.instance.taskManager.Add_MoveItem(idx, p.inventory.selectedSlot);
+                        return s;
                     }
                 }
-            } else {
-                return null;
             }
-            if (supplmentIdx < 0) {
-                return null;
-            }
-            AutoHarvest.instance.taskManager.Add_MoveItem(supplmentIdx, p.inventory.selectedSlot);
             return null;
         } else {
             return itemStack;
