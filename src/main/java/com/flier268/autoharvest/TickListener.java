@@ -36,6 +36,9 @@ public class TickListener {
         this.p = player;
         ClientTickEvents.END_CLIENT_TICK.register(e ->
         {
+            if (AutoHarvest.instance.overlayRemainingTick > 0) {
+                AutoHarvest.instance.overlayRemainingTick--;
+            }
             if (AutoHarvest.instance.Switch)
                 onTick(e.player);
         });
@@ -53,9 +56,6 @@ public class TickListener {
                 AutoHarvest.instance.Switch = false;
                 AutoHarvest.msg("notify.turn.off");
                 return;
-            }
-            if (AutoHarvest.instance.overlayRemainingTick > 0) {
-                AutoHarvest.instance.overlayRemainingTick--;
             }
             if (AutoHarvest.instance.taskManager.Count() > 0) {
                 AutoHarvest.instance.taskManager.RunATask();
