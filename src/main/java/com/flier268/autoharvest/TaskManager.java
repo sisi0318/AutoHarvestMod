@@ -58,7 +58,11 @@ public class TaskManager {
             case MOVEITEM:
                 MinecraftClient mc = MinecraftClient.getInstance();
                 PlayerScreenHandler container = mc.player.playerScreenHandler;
-                mc.interactionManager.clickSlot(container.syncId, (int) line.Args[0], (int) line.Args[1], SlotActionType.SWAP, mc.player);
+                if ((int) line.Args[0] < 9) {
+                    MinecraftClient.getInstance().player.inventory.selectedSlot = (int) line.Args[0];
+                } else {
+                    mc.interactionManager.clickSlot(container.syncId, (int) line.Args[0], (int) line.Args[1], SlotActionType.SWAP, mc.player);
+                }
                 break;
             case SKIPTICK:
                 break;

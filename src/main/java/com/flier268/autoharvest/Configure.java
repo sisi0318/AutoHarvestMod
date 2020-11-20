@@ -13,14 +13,14 @@ public class Configure {
 
     public FlowerISseed flowerISseed = new FlowerISseed();
 
-    public class FlowerISseed {
+    public static class FlowerISseed {
         public boolean value = false;
         private String name = "flowerISseed";
     }
 
     public Effect_radius effect_radius = new Effect_radius();
 
-    public class Effect_radius {
+    public static class Effect_radius {
         public int value = 3;
         private String name = "effect_radius";
         public static final int Max = 3;
@@ -29,11 +29,18 @@ public class Configure {
 
     public TickSkip tickSkip = new TickSkip();
 
-    public class TickSkip {
+    public static class TickSkip {
         public int value = 0;
         private String name = "tick_skip";
         public static final int Max = 100;
         public static final int Min = 0;
+    }
+
+    public KeepFishingRodAlive keepFishingRodAlive = new KeepFishingRodAlive();
+
+    public static class KeepFishingRodAlive {
+        public boolean value = true;
+        String name = "keepFishingRodAlive";
     }
 
 
@@ -77,8 +84,12 @@ public class Configure {
                     } catch (Exception e) {
                     }
                 }
-
-
+                if (jsonObject.has(keepFishingRodAlive.name)) {
+                    try {
+                        this.keepFishingRodAlive.value = jsonObject.getAsJsonPrimitive(keepFishingRodAlive.name).getAsBoolean();
+                    } catch (Exception e) {
+                    }
+                }
                 return this;
             }
         } catch (Exception ex) {

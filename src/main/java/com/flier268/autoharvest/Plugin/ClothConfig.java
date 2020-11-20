@@ -23,8 +23,9 @@ public class ClothConfig {
 
         scrolling.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("config.flower_is_seed"), c.flowerISseed.value).setDefaultValue(false).setSaveConsumer(b -> c.flowerISseed.value = b).build());
 
-        scrolling.addEntry(entryBuilder.startIntSlider(new TranslatableText("config.effect_radius"), c.effect_radius.value, Configure.Effect_radius.Min, Configure.Effect_radius.Max).setDefaultValue(Configure.Effect_radius.Max).setSaveConsumer(b -> c.effect_radius.value = b).build());
-        scrolling.addEntry(entryBuilder.startIntSlider(new TranslatableText("config.tick_skip"), c.tickSkip.value, Configure.TickSkip.Min, Configure.TickSkip.Max).setTooltip(new TranslatableText("config.tick_skip_tooltip")).setDefaultValue(Configure.TickSkip.Min).setSaveConsumer(b -> c.tickSkip.value = b).build());
+        scrolling.addEntry(entryBuilder.startIntSlider(new TranslatableText("config.effect_radius"), c.effect_radius.value, Configure.Effect_radius.Min, Configure.Effect_radius.Max).setDefaultValue((new Configure.Effect_radius()).value).setSaveConsumer(b -> c.effect_radius.value = b).build());
+        scrolling.addEntry(entryBuilder.startIntSlider(new TranslatableText("config.tick_skip"), c.tickSkip.value, Configure.TickSkip.Min, new Configure.TickSkip().value).setTooltip(new TranslatableText("config.tick_skip_tooltip")).setDefaultValue(Configure.TickSkip.Min).setSaveConsumer(b -> c.tickSkip.value = b).build());
+        scrolling.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("config.keep_fishing_rod_alive"), c.keepFishingRodAlive.value).setDefaultValue(new Configure.KeepFishingRodAlive().value).setSaveConsumer(b -> c.keepFishingRodAlive.value = b).build());
         return builder.setParentScreen(parentScreen).build();
     }
 

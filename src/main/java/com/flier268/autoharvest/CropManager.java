@@ -199,13 +199,6 @@ public class CropManager {
         );
     }
 
-    public static boolean rodIsCast(ItemStack stack, ClientPlayerEntity player) {
-        if (!isRod(stack)) {
-            return false;
-        }
-        return stack.getItem() == Items.FISHING_ROD;
-    }
-
     public static boolean canPlantOn(Item m, World w, BlockPos p) {
         if (!SEED_MAP.containsValue(m)) return false;
         return SEED_MAP.inverse().get(m).getDefaultState().canPlaceAt(w, p);

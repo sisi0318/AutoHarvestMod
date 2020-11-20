@@ -153,7 +153,7 @@ public class TickListener {
             ItemStack stack = null;
             if (lastUsedItem != null && !lastUsedItem.isEmpty()) {
                 DefaultedList<ItemStack> inv = p.inventory.main;
-                for (int idx = 9; idx < 36; ++idx) {
+                for (int idx = 0; idx < 36; ++idx) {
                     ItemStack s = inv.get(idx);
                     if (s.getItem() == lastUsedItem.getItem() &&
                             s.getDamage() == lastUsedItem.getDamage() &&
@@ -175,7 +175,25 @@ public class TickListener {
             return itemStack;
         }
     }
-
+    /**
+     * @return -1: does't have rod; 0: no change; change
+     **/
+    private int tryReplacingFishingRod() {
+        ItemStack itemStack = p.getMainHandStack();
+        if (CropManager.isRod(itemStack) && (configure.keepFishingRodAlive.value == false || itemStack.getMaxDamage() - itemStack.getDamage() > 1)) {
+            return 0;
+        } else {
+            DefaultedList<ItemStack> inv = p.inventory.main;
+            for (int idx = 0; idx < 36; ++idx) {
+                ItemStack s = inv.get(idx);
+                if (CropManager.isRod(s) && (configure.keepFishingRodAlive.value == false || s.getMaxDamage() - s.getDamage() > 1)) {
+                    AutoHarvest.instance.taskManager.Add_MoveItem(idx, p.inventory.selectedSlot);
+                    return 1;
+                }
+            }
+            return -1;
+        }
+    }
     private void plantTick() {
         ItemStack handItem = tryFillItemInHand();
         if (handItem == null) return;
@@ -312,35 +330,32 @@ public class TickListener {
 
 
     private void fishingTick() {
-        ItemStack handItem = tryFillItemInHand();
-        if (handItem == null) return;
-        if (CropManager.isRod(handItem)) {
-            if (CropManager.rodIsCast(handItem, p) || fishBitesAt != 0) {
+        switch (tryReplacingFishingRod()) {
+            case -1:
+                AutoHarvest.msg("notify.turn.off");
+                AutoHarvest.instance.Switch = false;
+                break;
+            case 0:
                 /* Reel */
                 if (fishBitesAt == 0 && isFishBites(p)) {
-
                     fishBitesAt = getWorldTime();
                     MinecraftClient.getInstance().interactionManager.interactItem(
                             p,
                             MinecraftClient.getInstance().world,
                             Hand.MAIN_HAND);
-
                 }
 
                 /* Cast */
                 if (fishBitesAt != 0 && fishBitesAt + 20 <= getWorldTime()) {
-                    if (handItem.getMaxDamage() - handItem.getDamage() == 1) {
-                        AutoHarvest.msg("notify.turn.off");
-                        AutoHarvest.instance.Switch = false;
-                        return;
-                    }
                     MinecraftClient.getInstance().interactionManager.interactItem(
                             p,
                             MinecraftClient.getInstance().world,
                             Hand.MAIN_HAND);
                     fishBitesAt = 0;
                 }
-            }
+                break;
+            case 1:
+                return;
         }
     }
 
