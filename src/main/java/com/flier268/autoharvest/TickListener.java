@@ -54,6 +54,9 @@ public class TickListener {
                 AutoHarvest.msg("notify.turn.off");
                 return;
             }
+            if (AutoHarvest.instance.overlayRemainingTick > 0) {
+                AutoHarvest.instance.overlayRemainingTick--;
+            }
             if (AutoHarvest.instance.taskManager.Count() > 0) {
                 AutoHarvest.instance.taskManager.RunATask();
                 return;

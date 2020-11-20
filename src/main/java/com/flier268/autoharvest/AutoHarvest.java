@@ -9,6 +9,7 @@ public class AutoHarvest implements ClientModInitializer {
     public static final String MOD_NAME = "autoharvest";
     public static AutoHarvest instance;
     public HarvestMode mode = HarvestMode.FISHING;
+    public int overlayRemainingTick = 0;
     public TickListener listener = null;
     public KeyPressListener KeyListener = null;
 
@@ -68,6 +69,6 @@ public class AutoHarvest implements ClientModInitializer {
             return;
         if (MinecraftClient.getInstance().player == null)
             return;
-        MinecraftClient.getInstance().player.sendMessage(new LiteralText(new TranslatableText("notify.prefix").getString() + new TranslatableText(key, obj).getString()), false);
+        MinecraftClient.getInstance().player.sendMessage(new LiteralText(new TranslatableText("notify.prefix").getString() + new TranslatableText(key, obj).getString()), true);
     }
 }

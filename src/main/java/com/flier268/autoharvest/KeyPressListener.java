@@ -83,7 +83,13 @@ public class KeyPressListener {
         } else {
             String modeName = null;
             if (key_ModeChange.wasPressed()) {
-                modeName = AutoHarvest.instance.toNextMode().toString().toLowerCase();
+                if (AutoHarvest.instance.overlayRemainingTick == 0) {
+                    AutoHarvest.instance.overlayRemainingTick = 60;
+                    modeName = AutoHarvest.instance.mode.toString().toLowerCase();
+                } else {
+                    AutoHarvest.instance.overlayRemainingTick = 60;
+                    modeName = AutoHarvest.instance.toNextMode().toString().toLowerCase();
+                }
             } else if (key_HARVEST.wasPressed()) {
                 modeName = AutoHarvest.instance.toSpecifiedMode(AutoHarvest.HarvestMode.HARVEST).toString().toLowerCase();
             } else if (key_PLANT.wasPressed()) {
