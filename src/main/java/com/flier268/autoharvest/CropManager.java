@@ -5,7 +5,6 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.*;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.mob.HoglinEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.item.Item;
@@ -25,7 +24,7 @@ public class CropManager {
     public static final Block BAMBOO = Blocks.BAMBOO;
     public static final Block KELP = Blocks.KELP;
 
-    public static final Set<Block> WEED_BLOCKS = new HashSet<Block>() {{
+    public static final Set<Block> WEED_BLOCKS = new HashSet<>() {{
         add(Blocks.OAK_SAPLING);
         add(Blocks.SPRUCE_SAPLING);
         add(Blocks.BIRCH_SAPLING);
@@ -48,7 +47,7 @@ public class CropManager {
         add(Blocks.WARPED_ROOTS);
     }};
 
-    public static final Set<Block> FLOWER_BLOCKS = new HashSet<Block>() {{
+    public static final Set<Block> FLOWER_BLOCKS = new HashSet<>() {{
         add(Blocks.DANDELION);
         add(Blocks.POPPY);
         add(Blocks.BLUE_ORCHID);
@@ -69,7 +68,7 @@ public class CropManager {
     }};
 
     public static final BiMap<Block, Item> SEED_MAP = HashBiMap.create(
-            new HashMap<Block, Item>() {{
+            new HashMap<>() {{
                 put(Blocks.WHEAT, Items.WHEAT_SEEDS);
                 put(Blocks.POTATOES, Items.POTATO);
                 put(Blocks.CARROTS, Items.CARROT);
@@ -106,9 +105,8 @@ public class CropManager {
 
         FEED_MAP.put(Items.ROTTEN_FLESH, WolfEntity.class);
 
-        FEED_MAP.put(Items.DANDELION, RabbitEntity.class); // Dandelion
+        FEED_MAP.put(Items.DANDELION, RabbitEntity.class);
         FEED_MAP.put(Items.CARROT, RabbitEntity.class);
-
         FEED_MAP.put(Items.WHEAT_SEEDS, ParrotEntity.class);
 
         //1.13
@@ -142,6 +140,11 @@ public class CropManager {
         //1.16
         FEED_MAP.put(Items.WARPED_FUNGUS, StriderEntity.class);
         FEED_MAP.put(Items.CRIMSON_FUNGUS, HoglinEntity.class);
+
+        //1.17
+        FEED_MAP.put(Items.WHEAT, GoatEntity.class);
+//        disabled due to complexity of interaction
+        //FEED_MAP.put(Items.TROPICAL_FISH_BUCKET, AxolotlEntity.class);
     }
 
     public static boolean isWeedBlock(World w, BlockPos pos) {
@@ -158,8 +161,7 @@ public class CropManager {
         if (b instanceof CropBlock) {
             return ((CropBlock) b).isMature(stat);
         } else if (b == BERRY) {
-            if (stat.get(SweetBerryBushBlock.AGE) == 3)
-                return true;
+            return stat.get(SweetBerryBushBlock.AGE) == 3;
         } else if (b == NETHER_WART) {
             if (b instanceof NetherWartBlock)
                 return stat.get(NetherWartBlock.AGE) >= 3;
