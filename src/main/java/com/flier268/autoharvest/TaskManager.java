@@ -38,10 +38,6 @@ public class TaskManager {
         return taskList.size();
     }
 
-    public boolean Remove(int index) {
-        return taskList.remove(index) != null;
-    }
-
     public void RunATask() {
         if (taskList.size() == 0)
             return;
@@ -49,10 +45,12 @@ public class TaskManager {
         switch (line.Command) {
             case MOVEITEM:
                 MinecraftClient mc = MinecraftClient.getInstance();
+                assert mc.player != null;
                 PlayerScreenHandler container = mc.player.playerScreenHandler;
                 if ((int) line.Args[0] < 9) {
                     MinecraftClient.getInstance().player.getInventory().selectedSlot = (int) line.Args[0];
                 } else {
+                    assert mc.interactionManager != null;
                     mc.interactionManager.clickSlot(container.syncId, (int) line.Args[0], (int) line.Args[1], SlotActionType.SWAP, mc.player);
                 }
                 break;
