@@ -11,8 +11,16 @@ import org.lwjgl.glfw.GLFW;
 
 public class KeyPressListener {
 
-    private KeyBinding key_Switch, key_ModeChange, key_Config;
-    private KeyBinding key_HARVEST, key_PLANT, key_Farmer, key_SEED, key_FEED, key_FISHING, Key_BONEMEALING;
+    private final KeyBinding key_Switch;
+    private final KeyBinding key_ModeChange;
+    private final KeyBinding key_Config;
+    private final KeyBinding key_HARVEST;
+    private final KeyBinding key_PLANT;
+    private final KeyBinding key_Farmer;
+    private final KeyBinding key_SEED;
+    private final KeyBinding key_FEED;
+    private final KeyBinding key_FISHING;
+    private final KeyBinding Key_BONEMEALING;
 
     public KeyPressListener() {
         String categoryGeneral = new TranslatableText("key.category.general").getString();
@@ -69,9 +77,7 @@ public class KeyPressListener {
         KeyBindingHelper.registerKeyBinding(key_FISHING);
         KeyBindingHelper.registerKeyBinding(Key_BONEMEALING);
 
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            onProcessKey();
-        });
+        ClientTickEvents.END_CLIENT_TICK.register(client -> onProcessKey());
     }
 
     public void onProcessKey() {
