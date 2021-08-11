@@ -85,7 +85,7 @@ public class KeyPressListener {
             AutoHarvest.instance.Switch = !AutoHarvest.instance.Switch;
             AutoHarvest.msg("notify.turn." + (AutoHarvest.instance.Switch ? "on" : "off"));
         } else if (key_Config.wasPressed()) {
-            MinecraftClient.getInstance().openScreen(ClothConfig.openConfigScreen(MinecraftClient.getInstance().currentScreen));
+            MinecraftClient.getInstance().setScreen(ClothConfig.openConfigScreen(MinecraftClient.getInstance().currentScreen));
         } else {
             String modeName = null;
             if (key_ModeChange.wasPressed()) {

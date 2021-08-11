@@ -4,7 +4,8 @@ package com.flier268.autoharvest;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.slot.SlotActionType;
-
+import com.flier268.autoharvest.TaskManager.Commands;
+import com.flier268.autoharvest.TaskManager.Line;
 import java.util.ArrayList;
 
 public class TaskManager {
