@@ -59,8 +59,7 @@ public class Configure {
                 return this;
             String jsonStr = new String(Files.readAllBytes(this.configFile.toPath()));
             if (!jsonStr.equals("")) {
-                JsonParser jsonParser = new JsonParser();
-                JsonObject jsonObject = jsonParser.parse(jsonStr).getAsJsonObject();
+                JsonObject jsonObject = JsonParser.parseString(jsonStr).getAsJsonObject();
 
                 if (jsonObject.has(flowerISseed.name)) {
                     try {
@@ -103,9 +102,9 @@ public class Configure {
         jsonObject.addProperty(flowerISseed.name, this.flowerISseed.value);
         jsonObject.addProperty(effect_radius.name, this.effect_radius.value);
         jsonObject.addProperty(tickSkip.name, this.tickSkip.value);
-        JsonParser parser = new JsonParser();
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonElement el = parser.parse(jsonObject.toString());
+        JsonElement el = JsonParser.parseString(jsonObject.toString());
         try (PrintWriter out = new PrintWriter(configFile)) {
             out.println(gson.toJson(el));
         } catch (FileNotFoundException e) {
