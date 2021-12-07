@@ -74,6 +74,7 @@ public class CropManager {
     public static final BiMap<Block, Item> SEED_MAP = HashBiMap.create(
             new HashMap<>() {
                 {
+                    put(Blocks.SWEET_BERRY_BUSH,Items.SWEET_BERRIES);
                     put(Blocks.WHEAT, Items.WHEAT_SEEDS);
                     put(Blocks.POTATOES, Items.POTATO);
                     put(Blocks.CARROTS, Items.CARROT);

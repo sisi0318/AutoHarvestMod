@@ -1,17 +1,18 @@
 package com.flier268.autoharvest;
 
+import java.util.Collection;
+
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.CropBlock;
+import net.minecraft.block.Fertilizable;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
@@ -20,8 +21,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.Collection;
 
 public class TickListener {
     private final Configure configure;
@@ -111,15 +110,17 @@ public class TickListener {
                 for (int deltaY = -1; deltaY <= 1; ++deltaY) {
                     BlockPos pos = new BlockPos(X + deltaX, Y + deltaY, Z + deltaZ);
                     BlockState state = w.getBlockState(pos);
-                    Block b = state.getBlock();
-                    if (CropManager.isCropMature(w, pos, state, b)) {
-                        if (b == Blocks.SWEET_BERRY_BUSH) {
-                            BlockPos downPos = pos.down();
+                    Block block = state.getBlock();
+                    if (CropManager.isCropMature(w, pos, state, block)) {
+                        if (block == Blocks.SWEET_BERRY_BUSH) {
                             BlockHitResult blockHitResult = new BlockHitResult(
-                                    new Vec3d(X + deltaX + 0.5, Y, Z + deltaZ + 0.5), Direction.UP, downPos, false);
+                                    new Vec3d(X + deltaX + 0.5, Y + deltaY - 0.5, Z + deltaZ + 0.5), Direction.UP,
+                                    pos,
+                                    false);
                             assert MinecraftClient.getInstance().interactionManager != null;
                             MinecraftClient.getInstance().interactionManager.interactBlock(p,
                                     MinecraftClient.getInstance().world, Hand.MAIN_HAND, blockHitResult);
+
                         } else {
                             assert MinecraftClient.getInstance().interactionManager != null;
                             MinecraftClient.getInstance().interactionManager.attackBlock(pos, Direction.UP);
@@ -186,8 +187,9 @@ public class TickListener {
 
     private void plantTick() {
         ItemStack handItem = tryFillItemInHand();
+        //Toto: 透過PlantBlock檢查
         if (handItem == null)
-            return;
+            return;            
         if (!CropManager.isSeed(handItem)) {
             if (CropManager.isCocoa(handItem)) {
                 plantCocoaTick(handItem);
@@ -200,6 +202,7 @@ public class TickListener {
         int Y = (int) Math.floor(p.getY() + 0.2D);// the "leg block" , in case in soul sand
         int Z = (int) Math.floor(p.getZ());
 
+        
         for (int deltaX = -configure.effect_radius.value; deltaX <= configure.effect_radius.value; ++deltaX)
             for (int deltaZ = -configure.effect_radius.value; deltaZ <= configure.effect_radius.value; ++deltaZ) {
                 BlockPos pos = new BlockPos(X + deltaX, Y, Z + deltaZ);
@@ -315,7 +318,6 @@ public class TickListener {
                 p.getZ() - configure.effect_radius.value,
                 p.getX() + configure.effect_radius.value, p.getY() + configure.effect_radius.value,
                 p.getZ() + configure.effect_radius.value);
-
         Collection<Class<? extends AnimalEntity>> needShearAnimalList = CropManager.SHEAR_MAP.get(handItem.getItem());
         for (Class<? extends AnimalEntity> type : needShearAnimalList) {
             for (AnimalEntity e : p.getEntityWorld().getEntitiesByClass(
@@ -339,7 +341,7 @@ public class TickListener {
          * bucket. The interaction is resolved on the server - if the client doesn't
          * match, the next animal to be
          * interacted with gets scooped up rather than fed.
-         */
+         */        
         Collection<Class<? extends AnimalEntity>> needFeedAnimalList = CropManager.FEED_MAP.get(handItem.getItem());
         for (Class<? extends AnimalEntity> type : needFeedAnimalList) {
             for (AnimalEntity e : p.getEntityWorld().getEntitiesByClass(
@@ -417,9 +419,8 @@ public class TickListener {
                     BlockPos pos = new BlockPos(X + deltaX, Y + deltaY, Z + deltaZ);
                     BlockState blockState = w.getBlockState(pos);
                     Block block = blockState.getBlock();
-                    if (block instanceof CropBlock) {
-                        // not Mature
-                        if (!((CropBlock) block).isMature(blockState)) {
+                    if (block instanceof Fertilizable) {
+                        if (((Fertilizable) block).isFertilizable(w, pos, blockState, w.isClient)) {
                             BlockHitResult blockHitResult = new BlockHitResult(
                                     new Vec3d(X + deltaX + 0.5, Y, Z + deltaZ + 0.5), Direction.UP, pos, false);
                             assert handItem != null;
