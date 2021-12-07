@@ -24,68 +24,74 @@ public class CropManager {
     public static final Block BAMBOO = Blocks.BAMBOO;
     public static final Block KELP = Blocks.KELP;
 
-    public static final Set<Block> WEED_BLOCKS = new HashSet<>() {{
-        add(Blocks.OAK_SAPLING);
-        add(Blocks.SPRUCE_SAPLING);
-        add(Blocks.BIRCH_SAPLING);
-        add(Blocks.JUNGLE_SAPLING);
-        add(Blocks.ACACIA_SAPLING);
-        add(Blocks.DARK_OAK_SAPLING);
-        add(Blocks.FERN);
-        add(Blocks.GRASS);
-        add(Blocks.DEAD_BUSH);
-        add(Blocks.BROWN_MUSHROOM);
-        add(Blocks.RED_MUSHROOM);
-        add(Blocks.TALL_GRASS);
-        add(Blocks.LARGE_FERN);
-        add(Blocks.SEAGRASS);
-        add(Blocks.TALL_SEAGRASS);
-        add(Blocks.KELP);
-        add(Blocks.KELP_PLANT);
-        // 1.16
-        add(Blocks.CRIMSON_ROOTS);
-        add(Blocks.WARPED_ROOTS);
-    }};
+    public static final Set<Block> WEED_BLOCKS = new HashSet<>() {
+        {
+            add(Blocks.OAK_SAPLING);
+            add(Blocks.SPRUCE_SAPLING);
+            add(Blocks.BIRCH_SAPLING);
+            add(Blocks.JUNGLE_SAPLING);
+            add(Blocks.ACACIA_SAPLING);
+            add(Blocks.DARK_OAK_SAPLING);
+            add(Blocks.FERN);
+            add(Blocks.GRASS);
+            add(Blocks.DEAD_BUSH);
+            add(Blocks.BROWN_MUSHROOM);
+            add(Blocks.RED_MUSHROOM);
+            add(Blocks.TALL_GRASS);
+            add(Blocks.LARGE_FERN);
+            add(Blocks.SEAGRASS);
+            add(Blocks.TALL_SEAGRASS);
+            add(Blocks.KELP);
+            add(Blocks.KELP_PLANT);
+            // 1.16
+            add(Blocks.CRIMSON_ROOTS);
+            add(Blocks.WARPED_ROOTS);
+        }
+    };
 
-    public static final Set<Block> FLOWER_BLOCKS = new HashSet<>() {{
-        add(Blocks.DANDELION);
-        add(Blocks.POPPY);
-        add(Blocks.BLUE_ORCHID);
-        add(Blocks.ALLIUM);
-        add(Blocks.AZURE_BLUET);
-        add(Blocks.RED_TULIP);
-        add(Blocks.ORANGE_TULIP);
-        add(Blocks.WHITE_TULIP);
-        add(Blocks.PINK_TULIP);
-        add(Blocks.OXEYE_DAISY);
-        add(Blocks.CORNFLOWER);
-        add(Blocks.LILY_OF_THE_VALLEY);
-        add(Blocks.WITHER_ROSE);
-        add(Blocks.SUNFLOWER);
-        add(Blocks.LILAC);
-        add(Blocks.ROSE_BUSH);
-        add(Blocks.PEONY);
-    }};
+    public static final Set<Block> FLOWER_BLOCKS = new HashSet<>() {
+        {
+            add(Blocks.DANDELION);
+            add(Blocks.POPPY);
+            add(Blocks.BLUE_ORCHID);
+            add(Blocks.ALLIUM);
+            add(Blocks.AZURE_BLUET);
+            add(Blocks.RED_TULIP);
+            add(Blocks.ORANGE_TULIP);
+            add(Blocks.WHITE_TULIP);
+            add(Blocks.PINK_TULIP);
+            add(Blocks.OXEYE_DAISY);
+            add(Blocks.CORNFLOWER);
+            add(Blocks.LILY_OF_THE_VALLEY);
+            add(Blocks.WITHER_ROSE);
+            add(Blocks.SUNFLOWER);
+            add(Blocks.LILAC);
+            add(Blocks.ROSE_BUSH);
+            add(Blocks.PEONY);
+        }
+    };
 
     public static final BiMap<Block, Item> SEED_MAP = HashBiMap.create(
-            new HashMap<>() {{
-                put(Blocks.WHEAT, Items.WHEAT_SEEDS);
-                put(Blocks.POTATOES, Items.POTATO);
-                put(Blocks.CARROTS, Items.CARROT);
-                put(Blocks.BEETROOTS, Items.BEETROOT_SEEDS);
-                put(Blocks.NETHER_WART, Items.NETHER_WART);
-                put(Blocks.MELON_STEM, Items.MELON_SEEDS);
-                put(Blocks.PUMPKIN_STEM, Items.PUMPKIN_SEEDS);
-                put(Blocks.SUGAR_CANE, Items.SUGAR_CANE);
-                put(Blocks.GRASS, Items.GRASS);
-                put(Blocks.BAMBOO, Items.BAMBOO);
-                // 1.16
-                put(Blocks.CRIMSON_FUNGUS, Items.CRIMSON_FUNGUS);
-                put(Blocks.WARPED_FUNGUS, Items.WARPED_FUNGUS);
-            }});
+            new HashMap<>() {
+                {
+                    put(Blocks.WHEAT, Items.WHEAT_SEEDS);
+                    put(Blocks.POTATOES, Items.POTATO);
+                    put(Blocks.CARROTS, Items.CARROT);
+                    put(Blocks.BEETROOTS, Items.BEETROOT_SEEDS);
+                    put(Blocks.NETHER_WART, Items.NETHER_WART);
+                    put(Blocks.MELON_STEM, Items.MELON_SEEDS);
+                    put(Blocks.PUMPKIN_STEM, Items.PUMPKIN_SEEDS);
+                    put(Blocks.SUGAR_CANE, Items.SUGAR_CANE);
+                    put(Blocks.GRASS, Items.GRASS);
+                    put(Blocks.BAMBOO, Items.BAMBOO);
+                    // 1.16
+                    put(Blocks.CRIMSON_FUNGUS, Items.CRIMSON_FUNGUS);
+                    put(Blocks.WARPED_FUNGUS, Items.WARPED_FUNGUS);
+                }
+            });
 
     public static final Multimap<Item, Class<? extends AnimalEntity>> FEED_MAP;
-
+    public static final Multimap<Item, Class<? extends AnimalEntity>> SHEAR_MAP;
     static {
         FEED_MAP = ArrayListMultimap.create();
         FEED_MAP.put(Items.GOLDEN_CARROT, HorseEntity.class);
@@ -109,16 +115,16 @@ public class CropManager {
         FEED_MAP.put(Items.CARROT, RabbitEntity.class);
         FEED_MAP.put(Items.WHEAT_SEEDS, ParrotEntity.class);
 
-        //1.13
+        // 1.13
         FEED_MAP.put(Items.SEAGRASS, TurtleEntity.class);
 
-        //1.14
+        // 1.14
         FEED_MAP.put(Items.KELP, PandaEntity.class);
         FEED_MAP.put(Items.SWEET_BERRIES, FoxEntity.class);
         FEED_MAP.put(Items.COD, CatEntity.class);
         FEED_MAP.put(Items.SALMON, CatEntity.class);
 
-        //1.15
+        // 1.15
         FEED_MAP.put(Items.DANDELION, BeeEntity.class);
         FEED_MAP.put(Items.POPPY, BeeEntity.class);
         FEED_MAP.put(Items.BLUE_ORCHID, BeeEntity.class);
@@ -137,14 +143,17 @@ public class CropManager {
         FEED_MAP.put(Items.ROSE_BUSH, BeeEntity.class);
         FEED_MAP.put(Items.PEONY, BeeEntity.class);
 
-        //1.16
+        // 1.16
         FEED_MAP.put(Items.WARPED_FUNGUS, StriderEntity.class);
         FEED_MAP.put(Items.CRIMSON_FUNGUS, HoglinEntity.class);
 
-        //1.17
+        // 1.17
         FEED_MAP.put(Items.WHEAT, GoatEntity.class);
-//        disabled due to complexity of interaction
-        //FEED_MAP.put(Items.TROPICAL_FISH_BUCKET, AxolotlEntity.class);
+        // disabled due to complexity of interaction
+        // FEED_MAP.put(Items.TROPICAL_FISH_BUCKET, AxolotlEntity.class);
+
+        SHEAR_MAP = ArrayListMultimap.create();
+        SHEAR_MAP.put(Items.SHEARS, SheepEntity.class);
     }
 
     public static boolean isWeedBlock(World w, BlockPos pos) {
@@ -197,12 +206,12 @@ public class CropManager {
 
     public static boolean isRod(ItemStack stack) {
         return (!stack.isEmpty()
-                && stack.getItem() == Items.FISHING_ROD
-        );
+                && stack.getItem() == Items.FISHING_ROD);
     }
 
     public static boolean canPlantOn(Item m, World w, BlockPos p) {
-        if (!SEED_MAP.containsValue(m)) return false;
+        if (!SEED_MAP.containsValue(m))
+            return false;
         return SEED_MAP.inverse().get(m).getDefaultState().canPlaceAt(w, p);
     }
 }
