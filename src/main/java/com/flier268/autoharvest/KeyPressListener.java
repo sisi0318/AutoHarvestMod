@@ -101,7 +101,7 @@ public class KeyPressListener {
             } else if (key_PLANT.wasPressed()) {
                 modeName = AutoHarvest.instance.toSpecifiedMode(AutoHarvest.HarvestMode.PLANT).toString().toLowerCase();
             } else if (key_Farmer.wasPressed()) {
-                modeName = AutoHarvest.instance.toSpecifiedMode(AutoHarvest.HarvestMode.Farmer).toString().toLowerCase();
+                modeName = AutoHarvest.instance.toSpecifiedMode(AutoHarvest.HarvestMode.FARMER).toString().toLowerCase();
             } else if (key_SEED.wasPressed()) {
                 modeName = AutoHarvest.instance.toSpecifiedMode(AutoHarvest.HarvestMode.SEED).toString().toLowerCase();
             } else if (key_FEED.wasPressed()) {

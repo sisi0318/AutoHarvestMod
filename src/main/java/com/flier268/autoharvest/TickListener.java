@@ -62,7 +62,7 @@ public class TickListener {
                 case SEED -> seedTick();
                 case HARVEST -> harvestTick();
                 case PLANT -> plantTick();
-                case Farmer -> {
+                case FARMER -> {
                     harvestTick();
                     plantTick();
                 }

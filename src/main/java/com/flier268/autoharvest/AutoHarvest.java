@@ -29,17 +29,18 @@ public class AutoHarvest implements ClientModInitializer {
     }
 
     public enum HarvestMode {
-        HARVEST,  // Harvest only
-        PLANT,  // Plant only
-        Farmer,  //Harvest then re-plant
-        SEED,   // Harvest seeds & flowers
+        HARVEST,    // Harvest only
+        PLANT,      // Plant only
+        FARMER,     //Harvest then re-plant
+        SEED,       // Harvest seeds & flowers
         BONEMEALING,
-        FEED,   // Feed animals
-        FISHING;// Fishing
-        private static HarvestMode[] vals = values();
+        FEED,       // Feed animals
+        FISHING,    // Fishing
+        SPAWNPROOF;
+        private static final HarvestMode[] VALUES = values();
 
         public AutoHarvest.HarvestMode next() {
-            return vals[(this.ordinal() + 1) % vals.length];
+            return VALUES[(this.ordinal() + 1) % VALUES.length];
         }
     }
 
