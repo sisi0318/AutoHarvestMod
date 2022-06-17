@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 
-public class Configure {
+public class Configuration {
     private File configFile;
 
     public FlowerISseed flowerISseed = new FlowerISseed();
@@ -44,7 +44,7 @@ public class Configure {
     }
 
 
-    public Configure() {
+    public Configuration() {
         this.configFile = FabricLoader
                 .getInstance()
                 .getConfigDir()
@@ -53,7 +53,7 @@ public class Configure {
         flowerISseed.value = false;
     }
 
-    public Configure load() {
+    public Configuration load() {
         try {
             if (!Files.exists(this.configFile.toPath()))
                 return this;
@@ -97,7 +97,7 @@ public class Configure {
         return null;
     }
 
-    public Configure save() {
+    public Configuration save() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty(flowerISseed.name, this.flowerISseed.value);
         jsonObject.addProperty(effect_radius.name, this.effect_radius.value);

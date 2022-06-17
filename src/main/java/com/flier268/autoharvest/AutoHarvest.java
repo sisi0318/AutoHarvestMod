@@ -2,8 +2,9 @@ package com.flier268.autoharvest;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.LiteralTextContent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableTextContent;
 
 public class AutoHarvest implements ClientModInitializer {
     public static final String MOD_NAME = "autoharvest";
@@ -16,7 +17,7 @@ public class AutoHarvest implements ClientModInitializer {
     TaskManager taskManager = new TaskManager();
 
     public boolean Switch = false;
-    public Configure configure = new Configure();
+    public Configuration configure = new Configuration();
 
     @Override
     public void onInitializeClient() {
@@ -31,12 +32,12 @@ public class AutoHarvest implements ClientModInitializer {
     public enum HarvestMode {
         HARVEST,    // Harvest only
         PLANT,      // Plant only
-        FARMER,     //Harvest then re-plant
+        FARMER,     // Harvest then re-plant
         SEED,       // Harvest seeds & flowers
         BONEMEALING,
         FEED,       // Feed animals
         FISHING,    // Fishing
-        SPAWNPROOF;
+        SPAWNPROOF; // Spawnproofing
         private static final HarvestMode[] VALUES = values();
 
         public AutoHarvest.HarvestMode next() {
@@ -50,7 +51,7 @@ public class AutoHarvest implements ClientModInitializer {
         if (listener == null) {
             listener = new TickListener(configure, MinecraftClient.getInstance().player);
         } else
-            listener.Reset();
+            listener.reset();
         this.mode = mode;
         return mode;
     }
@@ -60,7 +61,7 @@ public class AutoHarvest implements ClientModInitializer {
         if (listener == null) {
             listener = new TickListener(configure, MinecraftClient.getInstance().player);
         } else
-            listener.Reset();
+            listener.reset();
         mode = mode.next();
         return mode;
     }
@@ -70,6 +71,13 @@ public class AutoHarvest implements ClientModInitializer {
             return;
         if (MinecraftClient.getInstance().player == null)
             return;
-        MinecraftClient.getInstance().player.sendMessage(new LiteralText(new TranslatableText("notify.prefix").getString() + new TranslatableText(key, obj).getString()), true);
+        MinecraftClient.getInstance().player.sendMessage(
+                Text.of(
+                        String.format("%s %s",
+                                new TranslatableTextContent("notify.prefix"),
+                                new TranslatableTextContent(key, obj)
+                        )
+                )
+                , true);
     }
 }

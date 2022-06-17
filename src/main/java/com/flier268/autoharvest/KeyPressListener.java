@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyPressListener {
@@ -20,11 +20,11 @@ public class KeyPressListener {
     private final KeyBinding key_SEED;
     private final KeyBinding key_FEED;
     private final KeyBinding key_FISHING;
-    private final KeyBinding Key_BONEMEALING;
+    private final KeyBinding key_BONEMEALING;
 
     public KeyPressListener() {
-        String categoryGeneral = new TranslatableText("key.category.general").getString();
-        String categorySwitchTo = new TranslatableText("key.category.switchTo").getString();
+        String categoryGeneral = new TranslatableTextContent("key.category.general").toString();
+        String categorySwitchTo = new TranslatableTextContent("key.category.switchTo").toString();
         key_ModeChange = new KeyBinding("key.general.modechange",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_H,
@@ -62,7 +62,7 @@ public class KeyPressListener {
                 GLFW.GLFW_KEY_UNKNOWN,
                 categorySwitchTo
         );
-        Key_BONEMEALING = new KeyBinding("bonemealing",
+        key_BONEMEALING = new KeyBinding("bonemealing",
                 GLFW.GLFW_KEY_UNKNOWN,
                 categorySwitchTo
         );
@@ -75,7 +75,7 @@ public class KeyPressListener {
         KeyBindingHelper.registerKeyBinding(key_SEED);
         KeyBindingHelper.registerKeyBinding(key_FEED);
         KeyBindingHelper.registerKeyBinding(key_FISHING);
-        KeyBindingHelper.registerKeyBinding(Key_BONEMEALING);
+        KeyBindingHelper.registerKeyBinding(key_BONEMEALING);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> onProcessKey());
     }
@@ -108,11 +108,11 @@ public class KeyPressListener {
                 modeName = AutoHarvest.instance.toSpecifiedMode(AutoHarvest.HarvestMode.FEED).toString().toLowerCase();
             } else if (key_FISHING.wasPressed()) {
                 modeName = AutoHarvest.instance.toSpecifiedMode(AutoHarvest.HarvestMode.FISHING).toString().toLowerCase();
-            } else if (Key_BONEMEALING.wasPressed()) {
+            } else if (key_BONEMEALING.wasPressed()) {
                 modeName = AutoHarvest.instance.toSpecifiedMode(AutoHarvest.HarvestMode.BONEMEALING).toString().toLowerCase();
             }
             if (modeName != null)
-                AutoHarvest.msg("notify.switch_to", new TranslatableText(modeName).getString());
+                AutoHarvest.msg("notify.switch_to", new TranslatableTextContent(modeName).toString());
         }
     }
 }
